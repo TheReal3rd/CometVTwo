@@ -8,7 +8,12 @@ namespace CometVTwo.Utils
     {
         public static GameRules[] GameRulesArray = (GameRules[]) UnityEngine.Object.FindObjectsOfType(typeof(GameRules));
         public static MultiplayerPlayerScript[] MultiplayerPlayerScripts = (MultiplayerPlayerScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MultiplayerPlayerScript));
-
+        public static MapManager MapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
+        public static SteamNetworkManager SteamNetworkManager = GameObject.Find("NetworkObject").GetComponent<SteamNetworkManager>();
+        public static NetworkManager NetworkManager = GameObject.Find("NetworkObject").GetComponent<global::NetworkManager>();
+        public static lobbyserverTEST component = GameObject.Find("NetworkObject").GetComponent<lobbyserverTEST>();
+        
+        
         public static void SetClientHealth(int client, int health)
         {
             ((MultiplayerPlayerScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MultiplayerPlayerScript)))[client]
