@@ -1,5 +1,5 @@
-Recreation of a old and inefficient Utility hack for DUSK.
+CometVTwo is a recreation of a past DUSK mod that was inefficent and over all an embarrassment.
 
-This recreation aims to not be shitty and provide a more professinal feel alongside provide more features and alongside provide better hacks compared to the first version of comet.
+So i decided to recreate the mod that provides more features alongside provide much more efficent and customizable hacking menu.
 
-This can be used as a base for Other Unity games just remove the dependancy for Dusk and the utilities that interact with DUSK.
+This Menu system can be ran on any Unity game with very little amount of edits.
