@@ -6,7 +6,7 @@ namespace CometVTwo.Modules.Hacks.Player
     public class RapidFire : Module
     {
         private readonly booleanSetting autoUnlimited =
-            new booleanSetting("AutoUnlimitedAmmo", true, Setting.SettingType.Logic);
+            new booleanSetting("AutoUnlimitedAmmo", true);
         
         public RapidFire()
         {

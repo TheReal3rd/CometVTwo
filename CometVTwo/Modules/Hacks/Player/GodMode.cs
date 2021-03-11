@@ -6,9 +6,9 @@ namespace CometVTwo.Modules.Hacks.Player
     public class GodMode : Module
     {
         private readonly enumSetting modes =
-            new enumSetting("Mode", "BUILTIN", new[] {"BUILTIN", "HEALTH", "SET"}, Setting.SettingType.Enum);
+            new enumSetting("Mode", "BUILTIN", new[] {"BUILTIN", "HEALTH", "SET"});
         private readonly doubleSetting health =
-            new doubleSetting("Health", 0, 1000, 10, 500, Setting.SettingType.Numeric);
+            new doubleSetting("Health", 0, 1000, 10, 500);
         
         public GodMode()
         {

@@ -7,7 +7,7 @@ namespace CometVTwo.Modules.Hacks.Other
     {
         public TestModule2()
         {
-            base.SetUp("TestModule2", ModuleManager.Category.Other);
+            base.SetUp("TestModule2", ModuleManager.Category.Hidden);
         }
 
         public override void OnUpdate() 

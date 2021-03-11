@@ -16,47 +16,48 @@ namespace CometVTwo.Modules
             //modulesList.Add(new TestModule2());
             //modulesList.Add(new SaveTest());
             //modulesList.Add(new LoadTest());
+            modulesList.Add(new ColourSelectTest());
             //Player
             //modulesList.Add(new TestModule());
             modulesList.Add(new GiveAll());
             modulesList.Add(new GodMode());
             modulesList.Add(new RapidFire());
             modulesList.Add(new UnlimitedAmmo());
+            modulesList.Add(new Projectile());
             //Movement
             modulesList.Add(new JumpModifier());
+            modulesList.Add(new UseAmphetamineSalts());
             //Server
+            //Hidden
         }
 
         public void OnUpdate() {
-            for (int i =0; i != modulesList.Count; i++)
+            foreach (Module module in modulesList)
             {
-                var mod = modulesList[i];
-                if (mod.enabled)
+                if (module.enabled)
                 {
-                    mod.OnUpdate();
+                    module.OnUpdate();
                 }
             }
         }
 
         public void OnGUI() {
-            for (int i = 0; i != modulesList.Count; i++)
+            foreach (Module module in modulesList)
             {
-                var mod = modulesList[i];
-                if (mod.enabled)
+                if (module.enabled)
                 {
-                    mod.OnGUI();
+                    module.OnGUI();
                 }
             }
         }
 
         public void OnKeyPressed()
         {
-            for (int i = 0; i != modulesList.Count; i++)
+            foreach (Module module in modulesList)
             {
-                var mod = modulesList[i];
-                if (Input.GetKeyDown(mod.bind.GetVelue()))
+                if (Input.GetKeyDown(module.bind.GetVelue()))
                 {
-                    Toggle(mod);
+                    Toggle(module);
                 }
             }
         }
@@ -110,7 +111,8 @@ namespace CometVTwo.Modules
             Player,
             Movement,
             Server,
-            Other
+            Other,
+            Hidden
         }
     }
 }

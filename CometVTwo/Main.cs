@@ -1,4 +1,3 @@
-using System;
 using CometVTwo.menu;
 using CometVTwo.Modules;
 using CometVTwo.Utils;

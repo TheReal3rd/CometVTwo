@@ -9,14 +9,20 @@ namespace CometVTwo.menu
     {
         public ModuleManager.Category Category;
         private Color Colour;
-        public WindowElement(ModuleManager.Category category, Color color)
+        private Rect windowRect;
+        private Vector2 scrollPosition;
+        public WindowElement(ModuleManager.Category category, Color color, Rect windowRect)
         {
             this.Category = category;
             this.Colour = color;
+            this.windowRect = windowRect;
         }
         
         public void Draw(int windowID)
         {
+            GUI.color = Colour;
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(windowRect.width - 15), GUILayout.Height(windowRect.height - 15));
+            GUI.color = Color.white;
             var manager = Main.ModuleManager;
             foreach (var module in manager.modulesList)
             {
@@ -119,7 +125,6 @@ namespace CometVTwo.menu
                                     {
                                         GUI.color = Color.white;
                                     }
-
                                     if (!select.IsShowing())
                                     {
                                         if (GUILayout.Button(String.Format("{0}: {1}", select.GetName(), select.GetSelected()), new GUILayoutOption[0]))
@@ -130,16 +135,49 @@ namespace CometVTwo.menu
                                     else
                                     {
                                         GUI.color = Color.red;
-                                        for (int z = 0; z != select.GetSelection().Length; z++)
+                                        foreach (string selection in select.GetSelection())
                                         {
-                                            if (GUILayout.Button(select.GetSelection()[z], new GUILayoutOption[0]))
+                                            if (GUILayout.Button(selection, new GUILayoutOption[0]))
                                             {
-                                                select.SetSelected(select.GetSelection()[z]);
+                                                select.SetSelected(selection);
                                                 select.ToggleShowing();
                                             }
                                         }
                                     }
                                     GUI.color = Color.white;
+                                    break;
+                                case Setting.SettingType.Colour://Sooo the colours are not an enum lol... need to fix.
+                                    var colour = (colorSetting) setting;
+                                    if (colour.IsChanging())
+                                    {
+                                        GUI.color = Color.grey;
+                                    }
+                                    else
+                                    {
+                                        GUI.color = Color.white;
+                                    }
+                                    if (!colour.IsChanging())
+                                    {
+                                        if (GUILayout.Button(String.Format("{0}: {1}", colour.GetName(), colour.GetValue().ToString()), new GUILayoutOption[0]))
+                                        {
+                                            colour.ToggleChanging();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        GUI.color = Color.red;
+                                        foreach (Color color in System.Enum.GetValues(typeof(Color)))
+                                        {
+                                            if (GUILayout.Button(color.ToString(), new GUILayoutOption[0]))
+                                            {
+                                                colour.SetValue(color);
+                                                colour.ToggleChanging();
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case Setting.SettingType.Rect:
+                                    //Do nothing.
                                     break;
                             }
                         }
@@ -147,12 +185,22 @@ namespace CometVTwo.menu
                     GUILayout.EndVertical();
                 }
             }
+            GUILayout.EndScrollView();
             GUI.DragWindow(new Rect(0,0,1000,1000));
         }
 
         public Color GetColour()
         {
             return this.Colour;
+        }
+
+        public Rect GetWindowRect()
+        {
+            return windowRect;
+        }
+        public void SetWindowRect(Rect windowRect)
+        {
+            this.windowRect = windowRect;
         }
 
         public ModuleManager.Category getCategory()

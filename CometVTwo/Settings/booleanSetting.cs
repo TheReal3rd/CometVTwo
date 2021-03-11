@@ -6,18 +6,18 @@ namespace CometVTwo.Settings
     {
         private bool value;
         
-        public booleanSetting(string name, string description, bool value, SettingType type)
+        public booleanSetting(string name, string description, bool value)
         {
             this.SetName(name);
             this.SetDescription(description);
-            this.SetType(type);
+            this.SetType(SettingType.Logic);
             this.value = value;
         }
-        public booleanSetting(string name, bool value, SettingType type)
+        public booleanSetting(string name, bool value)
         {
             this.SetName(name);
             this.SetDescription("");
-            this.SetType(type);
+            this.SetType(SettingType.Logic);
             this.value = value;
         }
 

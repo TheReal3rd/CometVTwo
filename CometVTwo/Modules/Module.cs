@@ -8,7 +8,7 @@ namespace CometVTwo.Modules
     {
         public string name;
         public ModuleManager.Category category;
-        public bindSetting bind = new bindSetting("Bind", KeyCode.None, Setting.SettingType.Bind);
+        public bindSetting bind = new bindSetting("Bind", KeyCode.None);
         public bool enabled = false;
         public bool showingSettings = false;
         public List<Setting> moduleSettings = new List<Setting>();

@@ -10,21 +10,21 @@ namespace CometVTwo.Settings
         private double value;
         private double incrementAmount;
 
-        public doubleSetting(string name, string desciption, double min, double max, double incrementAmount, double defaultValue, SettingType type)
+        public doubleSetting(string name, string desciption, double min, double max, double incrementAmount, double defaultValue)
         {
             this.SetName(name);
             this.SetDescription(desciption);
-            this.SetType(type);
+            this.SetType(SettingType.Numeric);
             this.min = min;
             this.max = max;
             this.incrementAmount = incrementAmount;
             this.value = defaultValue;
         }
-        public doubleSetting(string name, double min, double max, double incrementAmount, double defaultValue, SettingType type)
+        public doubleSetting(string name, double min, double max, double incrementAmount, double defaultValue)
         {
             this.SetName(name);
             this.SetDescription("");
-            this.SetType(type);
+            this.SetType(SettingType.Numeric);
             this.min = min;
             this.max = max;
             this.incrementAmount = incrementAmount;

@@ -5,15 +5,15 @@ namespace CometVTwo.Modules.Hacks.Player
 {
     public class TestModule : Module
     {
-        private readonly doubleSetting testValue = new doubleSetting("Test",0,100, 0.5,10, Setting.SettingType.Numeric);
-        private readonly booleanSetting testValue2 = new booleanSetting("Test2", false, Setting.SettingType.Logic);
+        private readonly doubleSetting testValue = new doubleSetting("Test",0,100, 0.5,10);
+        private readonly booleanSetting testValue2 = new booleanSetting("Test2", false);
         private readonly enumSetting testValue3 =
-            new enumSetting("Test3", "BOB", new string[] { "BOB", "TOM", "JOSH" }, Setting.SettingType.Enum);
-        private readonly bindSetting testValue4 = new bindSetting("Test4", KeyCode.PageUp , Setting.SettingType.Bind);
+            new enumSetting("Test3", "BOB", new string[] { "BOB", "TOM", "JOSH" });
+        private readonly bindSetting testValue4 = new bindSetting("Test4", KeyCode.PageUp);
         
         public TestModule()
         {
-            base.SetUp("TestModule", ModuleManager.Category.Player, KeyCode.PageUp);
+            base.SetUp("TestModule", ModuleManager.Category.Hidden);
             base.moduleSettings.Add(testValue);
             base.moduleSettings.Add(testValue2);
             base.moduleSettings.Add(testValue3);

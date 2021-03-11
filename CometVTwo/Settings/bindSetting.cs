@@ -5,18 +5,18 @@ namespace CometVTwo.Settings
     public class bindSetting : Setting
     {
         private KeyCode bind;
-        public bindSetting(string name, string description, KeyCode bind, SettingType type)
+        public bindSetting(string name, string description, KeyCode bind)
         {
             base.SetName(name);
             base.SetDescription(description);
-            base.SetType(type);
+            base.SetType(SettingType.Bind);
             this.bind = bind;
         }
-        public bindSetting(string name, KeyCode bind, SettingType type)
+        public bindSetting(string name, KeyCode bind)
         {
             base.SetName(name);
             base.SetDescription("");
-            base.SetType(type);
+            base.SetType(SettingType.Bind);
             this.bind = bind;
         }
         

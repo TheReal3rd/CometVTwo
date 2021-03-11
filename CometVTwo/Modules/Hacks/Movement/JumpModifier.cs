@@ -6,11 +6,11 @@ namespace CometVTwo.Modules.Hacks.Movement
     public class JumpModifier : Module
     {
         private readonly doubleSetting height =
-            new doubleSetting("Height", "The height the player can jump.", 0.1, 2, 0.1, 1, Setting.SettingType.Numeric);
+            new doubleSetting("Height", "The height the player can jump.", 0.1, 2, 0.1, 1);
         private readonly booleanSetting allowGravityForce =
-            new booleanSetting("AllowGravityForce", false, Setting.SettingType.Logic);
+            new booleanSetting("AllowGravityForce", false);
         private readonly doubleSetting gravity =
-            new doubleSetting("GravityForce", "Changes gravities force.", -2.0, 2.0, 0.05, 1, Setting.SettingType.Numeric);
+            new doubleSetting("GravityForce", "Changes gravities force.", -2.0, 2.0, 0.05, 1);
         
         public JumpModifier()
         {

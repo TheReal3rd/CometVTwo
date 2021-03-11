@@ -8,19 +8,19 @@ namespace CometVTwo.Settings
         private string[] Selection;
         private bool showingList = false;
 
-        public enumSetting(string name, string description, string selected, string[] selection, SettingType type)
+        public enumSetting(string name, string description, string selected, string[] selection)
         {
             base.SetName(name);
             base.SetDescription(description);
-            base.SetType(type);
+            base.SetType(SettingType.Enum);
             this.selected = selected;
             this.Selection = selection;
         }
-        public enumSetting(string name, string selected, string[] selection, SettingType type)
+        public enumSetting(string name, string selected, string[] selection)
         {
             base.SetName(name);
             base.SetDescription("");
-            base.SetType(type);
+            base.SetType(SettingType.Enum);
             this.selected = selected;
             this.Selection = selection;
         }

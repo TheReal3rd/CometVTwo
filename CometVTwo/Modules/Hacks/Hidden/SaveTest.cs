@@ -4,7 +4,7 @@ namespace CometVTwo.Modules.Hacks.Other
     {
         public SaveTest()
         {
-            base.SetUp("SaveTest", ModuleManager.Category.Other);
+            base.SetUp("SaveTest", ModuleManager.Category.Hidden);
         }
 
         public override void OnEnable()

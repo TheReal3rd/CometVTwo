@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Xml;
 using CometVTwo.Modules;
 using CometVTwo.Settings;
@@ -62,7 +63,11 @@ namespace CometVTwo.Utils.FileSystem
                         {
                             case Setting.SettingType.Enum:
                                 var selected = (enumSetting) setting;
-                                selected.SetSelected(xmlReader.GetAttribute(selected.GetName()));
+                                string content = xmlReader.GetAttribute(selected.GetName());
+                                if (selected.GetSelection().Contains(content))
+                                {
+                                    selected.SetSelected(content);
+                                }
                                 break;
                             case Setting.SettingType.Bind:
                                 var bind = (bindSetting) setting;

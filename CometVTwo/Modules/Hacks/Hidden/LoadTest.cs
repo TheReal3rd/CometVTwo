@@ -6,7 +6,7 @@ namespace CometVTwo.Modules.Hacks.Other
     {
         public LoadTest()
         {
-            base.SetUp("LoadTest", ModuleManager.Category.Other);
+            base.SetUp("LoadTest", ModuleManager.Category.Hidden);
         }
 
         public override void OnEnable()
