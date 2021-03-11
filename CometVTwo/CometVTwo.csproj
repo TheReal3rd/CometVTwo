@@ -61,9 +61,14 @@
         <Compile Include="Main.cs" />
         <Compile Include="Menu\WindowElement.cs" />
         <Compile Include="Modules\Hacks\Movement\JumpModifier.cs" />
+        <Compile Include="Modules\Hacks\Other\LoadTest.cs" />
+        <Compile Include="Modules\Hacks\Other\SaveTest.cs" />
         <Compile Include="Modules\Hacks\Other\TestModule2.cs" />
         <Compile Include="Modules\Hacks\Player\GiveAll.cs" />
+        <Compile Include="Modules\Hacks\Player\GodMode.cs" />
+        <Compile Include="Modules\Hacks\Player\RapidFire.cs" />
         <Compile Include="Modules\Hacks\Player\TestModule.cs" />
+        <Compile Include="Modules\Hacks\Player\UnlimitedAmmo.cs" />
         <Compile Include="Modules\Module.cs" />
         <Compile Include="Modules\ModuleManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +77,7 @@
         <Compile Include="Settings\doubleSetting.cs" />
         <Compile Include="Settings\enumSetting.cs" />
         <Compile Include="Settings\Setting.cs" />
+        <Compile Include="Utils\BindingHandler.cs" />
         <Compile Include="Utils\FileSystem\FileManager.cs" />
         <Compile Include="Utils\Pair.cs" />
         <Compile Include="Utils\PlayerUtil.cs" />

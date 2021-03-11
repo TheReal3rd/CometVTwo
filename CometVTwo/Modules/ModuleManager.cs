@@ -13,12 +13,18 @@ namespace CometVTwo.Modules
         public void Init()
         {
             //Other
-            modulesList.Add(new TestModule2());
+            //modulesList.Add(new TestModule2());
+            //modulesList.Add(new SaveTest());
+            //modulesList.Add(new LoadTest());
             //Player
-            modulesList.Add(new TestModule());
+            //modulesList.Add(new TestModule());
             modulesList.Add(new GiveAll());
+            modulesList.Add(new GodMode());
+            modulesList.Add(new RapidFire());
+            modulesList.Add(new UnlimitedAmmo());
             //Movement
             modulesList.Add(new JumpModifier());
+            //Server
         }
 
         public void OnUpdate() {
@@ -53,6 +59,32 @@ namespace CometVTwo.Modules
                     Toggle(mod);
                 }
             }
+        }
+
+        public bool IsModuleActive(Module module)
+        {
+            foreach (Module mod in modulesList)
+            {
+                if (mod.name == module.name && mod.category.Equals(module.category))
+                {
+                    return module.enabled;
+                }
+            }
+
+            return false;
+        }
+
+        public Module GetModule(string name)
+        {
+            foreach (Module module in modulesList)
+            {
+                if (module.name == name)
+                {
+                    return module;
+                }
+            }
+
+            return null;
         }
 
         public void Toggle(Module module)

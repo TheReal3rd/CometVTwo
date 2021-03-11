@@ -96,7 +96,7 @@ namespace CometVTwo.menu
                                     {
                                         if (GUILayout.Button("Set", new GUILayoutOption[0]))
                                         {
-                                            //Set code here
+                                            Main.BindingHandler.StartBinding(module);
                                         }
                                     }
                                     else

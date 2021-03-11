@@ -9,7 +9,6 @@ namespace CometVTwo.Modules.Hacks.Player
         private readonly booleanSetting testValue2 = new booleanSetting("Test2", false, Setting.SettingType.Logic);
         private readonly enumSetting testValue3 =
             new enumSetting("Test3", "BOB", new string[] { "BOB", "TOM", "JOSH" }, Setting.SettingType.Enum);
-
         private readonly bindSetting testValue4 = new bindSetting("Test4", KeyCode.PageUp , Setting.SettingType.Bind);
         
         public TestModule()

@@ -25,6 +25,10 @@ namespace CometVTwo.Settings
         {
             return value;
         }
+        public void SetValue(bool value)
+        {
+            this.value = value;
+        }
 
         public void Toggle()
         {

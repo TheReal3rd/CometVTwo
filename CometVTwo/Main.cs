@@ -1,3 +1,4 @@
+using System;
 using CometVTwo.menu;
 using CometVTwo.Modules;
 using CometVTwo.Utils;
@@ -16,12 +17,14 @@ namespace CometVTwo
         public static FileManager FileManager = new FileManager();
         public static ModuleManager ModuleManager = new ModuleManager();
         public static ClickGuiMain ClickGuiMain = new ClickGuiMain();
+        public static BindingHandler BindingHandler = new BindingHandler();
         
         public void Start()
         {
             OS = SystemInfo.operatingSystem;
             ModuleManager.Init();
             ClickGuiMain.Init();
+            FileManager.LoadAll();
         }
         public void Update()
         {
@@ -30,6 +33,10 @@ namespace CometVTwo
                 if (Input.GetKeyDown(KeyCode.Insert))
                 {
                     ClickGuiMain.Toggle();
+                }
+                if (BindingHandler.AreWeBinding())
+                {
+                    BindingHandler.UpdateBinding();
                 }
                 ModuleManager.OnKeyPressed();
                 ModuleManager.OnUpdate();
@@ -55,7 +62,12 @@ namespace CometVTwo
                 ClickGuiMain.OnGUI();
             }
         }
-        
+
+        public void OnDestroy()
+        {
+            FileManager.SaveAll();
+        }
+
         public void Awake()
         {
             UnityEngine.Object.DontDestroyOnLoad(this);
