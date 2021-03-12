@@ -1,4 +1,3 @@
-using CometVTwo.menu;
 using CometVTwo.Modules;
 using CometVTwo.Utils;
 using CometVTwo.Utils.FileSystem;
@@ -15,24 +14,26 @@ namespace CometVTwo
         //Managers and shit.
         public static FileManager FileManager = new FileManager();
         public static ModuleManager ModuleManager = new ModuleManager();
-        public static ClickGuiMain ClickGuiMain = new ClickGuiMain();
         public static BindingHandler BindingHandler = new BindingHandler();
-        
         public void Start()
         {
             OS = SystemInfo.operatingSystem;
             ModuleManager.Init();
-            ClickGuiMain.Init();
             FileManager.LoadAll();
+            FileManager.SetLog(false);
+            FileManager.Log("Started CometVTwo!");
+            //HarmonyUtil.DoPatching(); TODO look into harmony more to see if we can use it to replace Dusk's Methods
+            //From the looks of it the harmony code must be in the library and acts as an interface so meaning we must edit the games libs.
+            //I don't want to do that cause that could be detected by an AntiCheat or AntiTampering System. 
         }
         public void Update()
         {
-            if (Application.loadedLevelName != "MainMenu")
+            if (Application.loadedLevelName == "MainMenu")
             {
-                if (Input.GetKeyDown(KeyCode.Insert))
-                {
-                    ClickGuiMain.Toggle();
-                }
+                //Soon
+            }
+            else
+            {
                 if (BindingHandler.AreWeBinding())
                 {
                     BindingHandler.UpdateBinding();
@@ -54,11 +55,6 @@ namespace CometVTwo
                 GUI.color = Color.magenta;
                 GUI.Label(new Rect(10f, 10f, 4000f, 4000f), string.Format("{0} Ingame Menu | Version: {1} | By: 3rd#1703 | OS: {2}", name, version, OS));
                 ModuleManager.OnGUI();
-            }
-            //Click GUI rendering.
-            if (ClickGuiMain.MenuOpen)
-            {
-                ClickGuiMain.OnGUI();
             }
         }
 

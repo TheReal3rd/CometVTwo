@@ -2,11 +2,12 @@ using UnityEngine;
 
 namespace CometVTwo.Settings
 {
-    public class colorSetting : Setting
+    public class colorSetting : Setting//Colour* fuck!
     {
         private Color value;
-        public bool changing = false;
-        
+        private bool changing;
+        public int[] rgbNew;
+
         public colorSetting(string name, Color colour)
         {
             base.SetName(name);

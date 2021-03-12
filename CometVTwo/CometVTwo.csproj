@@ -56,7 +56,6 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Menu\ClickGuiMain.cs" />
         <Compile Include="Loader.cs" />
         <Compile Include="Main.cs" />
         <Compile Include="Menu\WindowElement.cs" />
@@ -65,8 +64,10 @@
         <Compile Include="Modules\Hacks\Hidden\TestModule.cs" />
         <Compile Include="Modules\Hacks\Hidden\TestModule2.cs" />
         <Compile Include="Modules\Hacks\Movement\JumpModifier.cs" />
+        <Compile Include="Modules\Hacks\Movement\NoClip.cs" />
         <Compile Include="Modules\Hacks\Movement\UseAmphetamineSalts.cs" />
-        <Compile Include="Modules\Hacks\Other\ColourSelectTest.cs" />
+        <Compile Include="Modules\Hacks\Other\Aimbot.cs" />
+        <Compile Include="Modules\Hacks\Other\ClickMenu.cs" />
         <Compile Include="Modules\Hacks\Player\GiveAll.cs" />
         <Compile Include="Modules\Hacks\Player\GodMode.cs" />
         <Compile Include="Modules\Hacks\Player\Projectile.cs" />
@@ -87,6 +88,7 @@
         <Compile Include="Utils\Pair.cs" />
         <Compile Include="Utils\PlayerUtil.cs" />
         <Compile Include="Utils\ServerUtils.cs" />
+        <Compile Include="Utils\Utils.cs" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Modules\Hacks\Server" />

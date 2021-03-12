@@ -1,10 +1,15 @@
 using CometVTwo.Settings;
 using CometVTwo.Utils;
+using UnityEngine;
 
 namespace CometVTwo.Modules.Hacks.Movement
 {
     public class JumpModifier : Module
     {
+        //Vars
+        private MyControllerScript myControllerScript;
+        
+        //Settings
         private readonly doubleSetting height =
             new doubleSetting("Height", "The height the player can jump.", 0.1, 2, 0.1, 1);
         private readonly booleanSetting allowGravityForce =
@@ -22,16 +27,17 @@ namespace CometVTwo.Modules.Hacks.Movement
 
         public override void OnUpdate()
         {
-            PlayerUtil.myControllerScript.jumpamount = height.GetValueFloat();
+            myControllerScript = (MyControllerScript) GameObject.Find("Player").GetComponent(typeof(MyControllerScript));
+            myControllerScript.jumpamount = height.GetValueFloat();
             if (allowGravityForce.GetValue())
             {
-                PlayerUtil.myControllerScript.gravityforce = gravity.GetValueFloat();
+                myControllerScript.gravityforce = gravity.GetValueFloat();
             }
         }
 
         public override void OnDisable()
         {
-            PlayerUtil.myControllerScript.jumpamount = 0.2f;
+            myControllerScript.jumpamount = 0.2f;
         }
     }
 }

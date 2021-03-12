@@ -1,3 +1,4 @@
+using CometVTwo.Modules;
 using UnityEngine;
 
 namespace CometVTwo.Settings
@@ -6,19 +7,26 @@ namespace CometVTwo.Settings
     {
         //This setting is for GUI.
         private Rect value;
-        public rectSetting(string name, Rect rect)
+        private ModuleManager.Category Category;
+        public rectSetting(string name, Rect rect, ModuleManager.Category category)
         {
             base.SetName(name);
             base.SetDescription("");
             base.SetType(SettingType.Rect);
+            this.Category = category;
         }
-        public rectSetting(string name, string description, Rect rect)
+        public rectSetting(string name, string description, Rect rect, ModuleManager.Category category)
         {
             base.SetName(name);
             base.SetDescription(description);
             base.SetType(SettingType.Rect);
+            this.Category = category;
         }
 
+        public ModuleManager.Category GetCategory()
+        {
+            return this.Category;
+        }
         public Rect GetValue()
         {
             return value;

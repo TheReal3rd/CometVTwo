@@ -16,7 +16,8 @@ namespace CometVTwo.Modules
             //modulesList.Add(new TestModule2());
             //modulesList.Add(new SaveTest());
             //modulesList.Add(new LoadTest());
-            modulesList.Add(new ColourSelectTest());
+            modulesList.Add(new ClickMenu());
+            modulesList.Add(new Aimbot());
             //Player
             //modulesList.Add(new TestModule());
             modulesList.Add(new GiveAll());
@@ -27,6 +28,7 @@ namespace CometVTwo.Modules
             //Movement
             modulesList.Add(new JumpModifier());
             modulesList.Add(new UseAmphetamineSalts());
+            modulesList.Add(new NoClip());
             //Server
             //Hidden
         }
@@ -87,9 +89,14 @@ namespace CometVTwo.Modules
 
             return null;
         }
+        public Module GetModule(Module module)
+        {
+            return GetModule(module.name);
+        }
 
         public void Toggle(Module module)
         {
+            Main.FileManager.Log(module.getName()+" Toggled!");
             module.enabled = !module.enabled;
             if (module.enabled)
             {

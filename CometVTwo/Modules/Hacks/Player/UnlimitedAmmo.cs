@@ -1,10 +1,13 @@
 using System;
 using CometVTwo.Utils;
+using UnityEngine;
 
 namespace CometVTwo.Modules.Hacks.Player
 {
     public class UnlimitedAmmo : Module
     {
+        //Vars
+        private SelectionScript selectionScript;
         public UnlimitedAmmo()
         {
             base.SetUp("UnlimitedAmmo", ModuleManager.Category.Player);
@@ -12,20 +15,19 @@ namespace CometVTwo.Modules.Hacks.Player
 
         public override void OnUpdate()
         {
-            SelectionScript selection = PlayerUtil.selectionScript;
-            for (int i = 0; i != selection.ammoinventory.Length; i++)
+            selectionScript = (SelectionScript) GameObject.Find("WeaponAnimator").GetComponent(typeof(SelectionScript));
+            for (int i = 0; i != selectionScript.ammoinventory.Length; i++)
             {
-                selection.ammoinventory[i] = Single.MaxValue;
+                selectionScript.ammoinventory[i] = Single.MaxValue;
             }
         }
 
         public override void OnDisable()
         {
-            SelectionScript selection = PlayerUtil.selectionScript;
-            for (int i = 0; i != selection.ammoinventory.Length; i++)
+            for (int i = 0; i != selectionScript.ammoinventory.Length; i++)
             {
                
-                selection.ammoinventory[i] = selection.maxammo[i];
+                selectionScript.ammoinventory[i] = selectionScript.maxammo[i];
             }
         }
     }

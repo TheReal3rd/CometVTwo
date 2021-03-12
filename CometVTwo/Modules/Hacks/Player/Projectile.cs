@@ -6,6 +6,11 @@ namespace CometVTwo.Modules.Hacks.Player
 {
     public class Projectile : Module
     {
+        //Vars
+        private AttackScript attackScript;
+        private SelectionScript selectionScript;
+        
+        //Settings
         private readonly enumSetting projectile = new enumSetting("ProjectileType", "BULLET",
             new[] {"BULLET", "ARROW", "RIVET", "MORTAR"});
         private readonly doubleSetting speed = new doubleSetting("Speed", 0, 10, 1, 2);
@@ -23,8 +28,7 @@ namespace CometVTwo.Modules.Hacks.Player
             new booleanSetting("BulletIgnoreTracers", false);
         private readonly booleanSetting semiAuto =
             new booleanSetting("SemiAuto", false);
-        
-        
+
         public Projectile()
         {
             base.SetUp("Projectile",ModuleManager.Category.Player);
@@ -41,8 +45,8 @@ namespace CometVTwo.Modules.Hacks.Player
 
         public override void OnUpdate()
         {
-            AttackScript attackScript = PlayerUtil.attackScript;
-            SelectionScript selectionScript = PlayerUtil.selectionScript;
+            attackScript = (AttackScript) GameObject.Find("WeaponAnimator").GetComponent(typeof(AttackScript));
+            selectionScript = (SelectionScript) GameObject.Find("WeaponAnimator").GetComponent(typeof(SelectionScript));
             if (selectionScript.selectedweapon == 1 && (!semiAuto.GetValue() && Input.GetKey(KeyCode.Mouse0)) || (semiAuto.GetValue() && Input.GetKeyDown(KeyCode.Mouse0)))
             {
                 if (projectile.GetSelected() == "BULLET")

@@ -1,10 +1,15 @@
 using CometVTwo.Settings;
 using CometVTwo.Utils;
+using UnityEngine;
 
 namespace CometVTwo.Modules.Hacks.Player
 {
     public class RapidFire : Module
     {
+        //Vars
+        private AttackScript attackScript;
+        
+        //Settings
         private readonly booleanSetting autoUnlimited =
             new booleanSetting("AutoUnlimitedAmmo", true);
         
@@ -16,6 +21,7 @@ namespace CometVTwo.Modules.Hacks.Player
 
         public override void OnUpdate()
         {
+            attackScript = (AttackScript) GameObject.Find("WeaponAnimator").GetComponent(typeof(AttackScript));
             if (autoUnlimited.GetValue())
             {
                 Module ammo = Main.ModuleManager.GetModule("UnlimitedAmmo");
@@ -24,8 +30,8 @@ namespace CometVTwo.Modules.Hacks.Player
                     Main.ModuleManager.Toggle(ammo);
                 }
             }
-            PlayerUtil.attackScript.firespeed *= 100f;
-            PlayerUtil.attackScript.firespeedtimer = 10000f;
+            attackScript.firespeed *= 100f;
+            attackScript.firespeedtimer = 10000f;
         }
 
         public override void OnDisable()
@@ -38,8 +44,8 @@ namespace CometVTwo.Modules.Hacks.Player
                     Main.ModuleManager.Toggle(ammo);
                 }
             }
-            PlayerUtil.attackScript.firespeed = 0f;
-            PlayerUtil.attackScript.firespeedtimer = 0f;
+            attackScript.firespeed = 0f;
+            attackScript.firespeedtimer = 0f;
         }
     }
 }
