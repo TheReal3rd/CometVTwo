@@ -1,5 +1,4 @@
 using CometVTwo.Settings;
-using CometVTwo.Utils;
 using UnityEngine;
 
 namespace CometVTwo.Modules.Hacks.Player
@@ -24,7 +23,7 @@ namespace CometVTwo.Modules.Hacks.Player
             new doubleSetting("BulletUpPower", 1, 1000, 10, 0);
         private readonly booleanSetting doricnoise =
             new booleanSetting("BulletDoricnoise", false);
-        private readonly booleanSetting ignoreTracers =
+        private booleanSetting ignoreTracers =
             new booleanSetting("BulletIgnoreTracers", false);
         private readonly booleanSetting semiAuto =
             new booleanSetting("SemiAuto", false);
@@ -66,6 +65,11 @@ namespace CometVTwo.Modules.Hacks.Player
                     attackScript.throwprojectile(2,speed.GetValueFloat(), shotNum.GetValueFloat(), inaccuracy.GetValueFloat());
                 }
             }
+        }
+
+        private bool IsModeBullet()
+        {
+            return projectile.GetSelected() == "BULLET";
         }
     }
 }

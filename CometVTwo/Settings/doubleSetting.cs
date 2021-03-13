@@ -20,6 +20,17 @@ namespace CometVTwo.Settings
             this.incrementAmount = incrementAmount;
             this.value = defaultValue;
         }
+        public doubleSetting(string name, string desciption, double min, double max, double incrementAmount, double defaultValue, bool visible)
+        {
+            this.SetName(name);
+            this.SetDescription(desciption);
+            this.SetType(SettingType.Numeric);
+            this.min = min;
+            this.max = max;
+            this.incrementAmount = incrementAmount;
+            this.value = defaultValue;
+            this.Visible = visible;
+        }
         public doubleSetting(string name, double min, double max, double incrementAmount, double defaultValue)
         {
             this.SetName(name);
@@ -30,7 +41,17 @@ namespace CometVTwo.Settings
             this.incrementAmount = incrementAmount;
             this.value = defaultValue;
         }
-
+        public doubleSetting(string name, double min, double max, double incrementAmount, double defaultValue, bool visible)
+        {
+            this.SetName(name);
+            this.SetDescription("");
+            this.SetType(SettingType.Numeric);
+            this.min = min;
+            this.max = max;
+            this.incrementAmount = incrementAmount;
+            this.value = defaultValue;
+            this.Visible = visible;
+        }
         public double GetValue()
         {
             return value;

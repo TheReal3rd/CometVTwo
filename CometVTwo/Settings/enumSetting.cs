@@ -16,6 +16,15 @@ namespace CometVTwo.Settings
             this.selected = selected;
             this.Selection = selection;
         }
+        public enumSetting(string name, string description, string selected, string[] selection, bool visible)
+        {
+            base.SetName(name);
+            base.SetDescription(description);
+            base.SetType(SettingType.Enum);
+            this.selected = selected;
+            this.Selection = selection;
+            this.Visible = visible;
+        }
         public enumSetting(string name, string selected, string[] selection)
         {
             base.SetName(name);
@@ -23,6 +32,15 @@ namespace CometVTwo.Settings
             base.SetType(SettingType.Enum);
             this.selected = selected;
             this.Selection = selection;
+        }
+        public enumSetting(string name, string selected, string[] selection, bool visible)
+        {
+            base.SetName(name);
+            base.SetDescription("");
+            base.SetType(SettingType.Enum);
+            this.selected = selected;
+            this.Selection = selection;
+            this.Visible = visible;
         }
 
         public string GetSelected()

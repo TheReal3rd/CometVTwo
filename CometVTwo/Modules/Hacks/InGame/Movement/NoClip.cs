@@ -13,7 +13,7 @@ namespace CometVTwo.Modules.Hacks.Movement
 
         public NoClip()
         {
-            base.SetUp("NoClip", ModuleManager.Category.Movement);
+            base.SetUp("NoClip", ModuleManager.Category.Movement, KeyCode.V);
             this.moduleSettings.Add(speed);
         }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml;
 using CometVTwo.menu;
 using CometVTwo.Modules;
+using CometVTwo.Modules.Hacks.MainMenu;
 using CometVTwo.Modules.Hacks.Other;
 using CometVTwo.Settings;
 using UnityEngine;
@@ -52,6 +53,8 @@ namespace CometVTwo.Utils.FileSystem
                         string formatting1 = String.Format("{0},{1},{2}", rgb[0], rgb[1], rgb[2]);
                         writer.WriteAttributeString(colour.GetName(), formatting1);
                         break;
+                    case Setting.SettingType.ClientSelect://No reason to save this.
+                        break;
                 }
             }
             writer.WriteEndElement();
@@ -98,23 +101,20 @@ namespace CometVTwo.Utils.FileSystem
                                 var numeric = (doubleSetting) setting;
                                 numeric.SetValue(Convert.ToDouble(xmlReader.GetAttribute(numeric.GetName())));
                                 break;
-                            case Setting.SettingType.Rect:
+                            case Setting.SettingType.Rect://TODO make this dynamic and not depend on category info.
                                 var rect = (rectSetting) setting;
                                 string[] data = xmlReader.GetAttribute(rect.GetName()).Split(',');
                                 Rect data1 = new Rect(float.Parse(data[0]), float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
-                                foreach (WindowElement window in ClickMenu.windowList)
-                                {
-                                    if (window.GetCategory().Equals(rect.GetCategory()))
-                                    {
-                                        window.SetWindowRect(data1);
-                                    }
-                                }
+                                rect.Update = true;
+                                rect.SetValue(data1);
                                 break;
                             case Setting.SettingType.Colour:
                                 var colour = (colorSetting) setting;
                                 string[] data3 = xmlReader.GetAttribute(colour.GetName()).Split(',');
                                 Color color = Utils.RGBToColour(new []{ int.Parse(data3[0]), int.Parse(data3[1]), int.Parse(data3[2]) });
                                 colour.SetValue(color);
+                                break;
+                            case Setting.SettingType.ClientSelect://No reason to save this.
                                 break;
                         }
                     }

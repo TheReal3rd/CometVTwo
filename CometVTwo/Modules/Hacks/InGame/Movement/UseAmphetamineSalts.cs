@@ -16,7 +16,7 @@ namespace CometVTwo.Modules.Hacks.Movement
         
         public UseAmphetamineSalts()
         {
-            base.SetUp("UseAmphetamineSalts", ModuleManager.Category.Movement);
+            base.SetUp("UseAmphetamineSalts", ModuleManager.Category.Movement);//My guy Amp 
             this.moduleSettings.Add(timerSpeed);
             this.moduleSettings.Add(mode);
         }
@@ -30,7 +30,7 @@ namespace CometVTwo.Modules.Hacks.Movement
             }
             else
             {
-                //TODO figure out how to get timescale to change + effect the game speed.
+                UnityEngine.Time.timeScale = timerSpeed.GetValueFloat();
             }
         }
 

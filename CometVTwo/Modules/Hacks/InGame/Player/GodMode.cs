@@ -11,7 +11,7 @@ namespace CometVTwo.Modules.Hacks.Player
         private MultiplayerPlayerScript[] MultiplayerPlayerScripts;
         //Settings
         private readonly enumSetting modes =
-            new enumSetting("Mode", "BUILTIN", new[] {"BUILTIN", "HEALTH", "SET", "PICKUP", "CLIENT"});
+            new enumSetting("Mode", "BUILTIN", new[] {"BUILTIN", "HEALTH", "SET", "PICKUP", "CLIENT", "NOTDEAD"});
         private readonly doubleSetting health =
             new doubleSetting("Health", 0, 1000, 10, 500);
         private readonly doubleSetting armour =
@@ -32,15 +32,15 @@ namespace CometVTwo.Modules.Hacks.Player
             MultiplayerPlayerScripts = (MultiplayerPlayerScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MultiplayerPlayerScript));
             if (modes.GetSelected() == "BUILTIN")
             {
-                BuiltInGodMode();
+                playerHealthManagement.godmode = true;
             }
-            else if(modes.GetSelected() == "HEALTH") 
+            else if(modes.GetSelected() == "HEALTH")
             {
-                HealthGodMode();
+                playerHealthManagement.myhealth = 1000f;
             }
             else if(modes.GetSelected() == "SET")
             {
-                SetPlayerHealth(health.GetValueFloat());
+                playerHealthManagement.myhealth = health.GetValueFloat();
             }
             else if(modes.GetSelected() == "PICKUP")
             {
@@ -50,7 +50,7 @@ namespace CometVTwo.Modules.Hacks.Player
                     script.pickupholyhealth(new GameObject());
                 }
             }
-            else
+            else if(modes.GetSelected() == "CLIENT")
             {
                 foreach (var clients in MultiplayerPlayerScripts)
                 {
@@ -61,21 +61,18 @@ namespace CometVTwo.Modules.Hacks.Player
                     }
                 }
             }
-        }
-        
-        private void SetPlayerHealth(float health)
-        {
-            playerHealthManagement.myhealth = health;
-        }
-        private void HealthGodMode()
-        {
-            SetPlayerHealth(1000);
-        }
-        private void BuiltInGodMode()
-        {
-            if (playerHealthManagement)
+            else
             {
-                playerHealthManagement.godmode = !playerHealthManagement.godmode;
+                playerHealthManagement.iamdead = false;
+                playerHealthManagement.myhealth = 200f;
+            }
+        }
+
+        public override void OnDisable()
+        {
+            if (playerHealthManagement.godmode)
+            {
+                playerHealthManagement.godmode = false;
             }
         }
     }

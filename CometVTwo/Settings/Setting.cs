@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace CometVTwo.Settings
 {
@@ -8,7 +7,8 @@ namespace CometVTwo.Settings
         private string name;
         private string description;
         private SettingType type;
-        
+        private bool visible;
+
         public string GetName()
         {
             return name;
@@ -38,7 +38,13 @@ namespace CometVTwo.Settings
         {
             this.type = type;
         }
-        
+
+        public bool Visible
+        {
+            get => visible;
+            set => visible = value;
+        }
+
         public enum SettingType//Used to identify the setting type for rendering and conversion.
         {
             Numeric,
@@ -46,7 +52,8 @@ namespace CometVTwo.Settings
             Bind,
             Enum,
             Rect,
-            Colour
+            Colour,
+            ClientSelect
         }
     }
 }

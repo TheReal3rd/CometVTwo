@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CometVTwo
 {
-    public class Main : MonoBehaviour
+    public class Main : MonoBehaviour//TODO need to make a window ID manager.
     {
         //Vars
         public const string version = "0.0.1";
@@ -28,19 +28,12 @@ namespace CometVTwo
         }
         public void Update()
         {
-            if (Application.loadedLevelName == "MainMenu")
+            if (BindingHandler.AreWeBinding())
             {
-                //Soon
+                BindingHandler.UpdateBinding();
             }
-            else
-            {
-                if (BindingHandler.AreWeBinding())
-                {
-                    BindingHandler.UpdateBinding();
-                }
-                ModuleManager.OnKeyPressed();
-                ModuleManager.OnUpdate();
-            }
+            ModuleManager.OnKeyPressed();
+            ModuleManager.OnUpdate();
         }
         public void OnGUI()
         {
@@ -54,8 +47,8 @@ namespace CometVTwo
             {
                 GUI.color = Color.magenta;
                 GUI.Label(new Rect(10f, 10f, 4000f, 4000f), string.Format("{0} Ingame Menu | Version: {1} | By: 3rd#1703 | OS: {2}", name, version, OS));
-                ModuleManager.OnGUI();
             }
+            ModuleManager.OnGUI();
         }
 
         public void OnDestroy()

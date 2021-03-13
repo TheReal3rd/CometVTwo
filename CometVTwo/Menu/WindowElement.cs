@@ -9,7 +9,7 @@ namespace CometVTwo.menu
     {
         private ModuleManager.Category Category;
         private Color Colour;
-        private Color buttonColour = Color.magenta;
+        private Color buttonColour;
         private Rect windowRect;
         private Vector2 scrollPosition;
 
@@ -47,6 +47,10 @@ namespace CometVTwo.menu
                         Main.ModuleManager.Toggle(module);
                     }
                     if(module.moduleSettings.Count != 0) {
+                        if (module.showingSettings)
+                        {
+                            GUI.color = Color.green;
+                        }
                         if (GUILayout.Button("Settings", new GUILayoutOption[0]))
                         {
                             Main.ModuleManager.ToggleSettings(module);
@@ -60,6 +64,7 @@ namespace CometVTwo.menu
                     {
                         foreach (var setting in module.moduleSettings)
                         {
+                            //if(!setting.Visible) continue;
                             switch (setting.GetSType())
                             {
                                 case Setting.SettingType.Logic:
@@ -196,31 +201,26 @@ namespace CometVTwo.menu
             GUI.DragWindow(new Rect(0,0,1000,1000));
         }
 
-        public Color GetColour()
+        public Color colour
         {
-            return this.Colour;
-        }
-        public void SetColour(Color colour)
-        {
-            this.Colour = colour;
-        }
-        public void SetButtonColour(Color colour)
-        {
-            this.buttonColour = colour;
+            get => Colour;
+            set => Colour = value;
         }
 
-        public Rect GetWindowRect()
+        public Color ButtonColour
         {
-            return windowRect;
-        }
-        public void SetWindowRect(Rect windowRect)
-        {
-            this.windowRect = windowRect;
+            set => buttonColour = value;
         }
 
-        public ModuleManager.Category GetCategory()
+        public Rect WindowRect
         {
-            return Category;
+            get => windowRect;
+            set => windowRect = value;
+        }
+        
+        public ModuleManager.Category category
+        {
+            get => Category;
         }
     }
 }

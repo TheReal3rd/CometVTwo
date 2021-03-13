@@ -12,11 +12,27 @@ namespace CometVTwo.Settings
             base.SetType(SettingType.Bind);
             this.bind = bind;
         }
+        public bindSetting(string name, string description, KeyCode bind, bool visible)
+        {
+            base.SetName(name);
+            base.SetDescription(description);
+            base.SetType(SettingType.Bind);
+            this.bind = bind;
+            this.Visible = visible;
+        }
         public bindSetting(string name, KeyCode bind)
         {
             base.SetName(name);
             base.SetDescription("");
             base.SetType(SettingType.Bind);
+            this.bind = bind;
+        }
+        public bindSetting(string name, KeyCode bind, bool visible)
+        {
+            base.SetName(name);
+            base.SetDescription("");
+            base.SetType(SettingType.Bind);
+            this.Visible = visible;
             this.bind = bind;
         }
         

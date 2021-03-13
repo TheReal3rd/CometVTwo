@@ -1,5 +1,4 @@
 using CometVTwo.Settings;
-using CometVTwo.Utils;
 using UnityEngine;
 
 namespace CometVTwo.Modules.Hacks.Player

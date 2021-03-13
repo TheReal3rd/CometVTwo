@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using CometVTwo.Modules.Hacks.InGame.Server;
+using CometVTwo.Modules.Hacks.MainMenu;
 using CometVTwo.Modules.Hacks.Movement;
 using CometVTwo.Modules.Hacks.Other;
 using CometVTwo.Modules.Hacks.Player;
@@ -12,14 +14,11 @@ namespace CometVTwo.Modules
 
         public void Init()
         {
+            //InGame
             //Other
-            //modulesList.Add(new TestModule2());
-            //modulesList.Add(new SaveTest());
-            //modulesList.Add(new LoadTest());
             modulesList.Add(new ClickMenu());
             modulesList.Add(new Aimbot());
             //Player
-            //modulesList.Add(new TestModule());
             modulesList.Add(new GiveAll());
             modulesList.Add(new GodMode());
             modulesList.Add(new RapidFire());
@@ -30,12 +29,25 @@ namespace CometVTwo.Modules
             modulesList.Add(new UseAmphetamineSalts());
             modulesList.Add(new NoClip());
             //Server
+            modulesList.Add(new MapChanger());
+            modulesList.Add(new ClientEditor());
             //Hidden
+            //MainMenu
+            modulesList.Add(new ClickMenuMainMenu());
+            modulesList.Add(new ServerPassword());
+            modulesList.Add(new ForceJoin());
+            modulesList.Add(new CreateServer());
         }
 
-        public void OnUpdate() {
+        public void OnUpdate()
+        {
             foreach (Module module in modulesList)
             {
+                if (module.getCategory().Equals(Category.MainMenu) && Application.loadedLevelName != "MainMenu" 
+                    || !module.getCategory().Equals(Category.MainMenu) && Application.loadedLevelName == "MainMenu")
+                {
+                    continue;
+                }
                 if (module.enabled)
                 {
                     module.OnUpdate();
@@ -46,6 +58,11 @@ namespace CometVTwo.Modules
         public void OnGUI() {
             foreach (Module module in modulesList)
             {
+                if (module.getCategory().Equals(Category.MainMenu) && Application.loadedLevelName != "MainMenu" 
+                    || !module.getCategory().Equals(Category.MainMenu) && Application.loadedLevelName == "MainMenu")
+                {
+                    continue;
+                }
                 if (module.enabled)
                 {
                     module.OnGUI();
@@ -77,7 +94,7 @@ namespace CometVTwo.Modules
             return false;
         }
 
-        public Module GetModule(string name)
+        public Module GetModule(string name)//I wanna get i by Class and not name :'(  
         {
             foreach (Module module in modulesList)
             {
@@ -88,10 +105,6 @@ namespace CometVTwo.Modules
             }
 
             return null;
-        }
-        public Module GetModule(Module module)
-        {
-            return GetModule(module.name);
         }
 
         public void Toggle(Module module)
@@ -119,7 +132,8 @@ namespace CometVTwo.Modules
             Movement,
             Server,
             Other,
-            Hidden
+            Hidden,
+            MainMenu
         }
     }
 }
