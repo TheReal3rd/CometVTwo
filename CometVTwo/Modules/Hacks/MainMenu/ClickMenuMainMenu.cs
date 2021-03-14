@@ -29,15 +29,18 @@ namespace CometVTwo.Modules.Hacks.MainMenu
 
         public override void OnGUI()
         {
+            GUI.color = rainbowWindow.Value ? Main.cycleColour : windowColour.Value;
+            window.ButtonColour = rainbowButton.Value ? Main.cycleColour : buttonColour.Value;
+            window.WindowRect = GUI.Window(1, window.WindowRect, new GUI.WindowFunction(window.Draw), "ModuleMenu");
             if (mainMenuWindow.Update)
             {
                 window.WindowRect = mainMenuWindow.Value;
                 mainMenuWindow.Update = false;
             }
-            GUI.color = rainbowWindow.Value ? Main.cycleColour : windowColour.Value;
-            window.ButtonColour = rainbowButton.Value ? Main.cycleColour : buttonColour.Value;
-            window.WindowRect = GUI.Window(1, window.WindowRect, new GUI.WindowFunction(window.Draw), "ModuleMenu");
-            mainMenuWindow.Value = window.WindowRect;
+            else
+            {
+                mainMenuWindow.Value = window.WindowRect;
+            }
         }
     }
 }
