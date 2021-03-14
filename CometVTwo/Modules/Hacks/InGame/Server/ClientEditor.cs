@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CometVTwo.Modules.Hacks.InGame.Movement;
 using CometVTwo.Modules.Hacks.InGame.Other;
+using CometVTwo.Settings;
 using UnityEngine;
 
 namespace CometVTwo.Modules.Hacks.InGame.Server
@@ -19,10 +20,13 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
         private int newHealth = 0;
         private int newArmour = 0;
         private List<MultiplayerPlayerScript> godModeList = new List<MultiplayerPlayerScript>();//All the players with godMode.
-        
+        //Settings
+        private readonly rectSetting windowPosition = new rectSetting("ClientEditor", new Rect(20, 420, 360, 400));
+            
         public ClientEditor()
         {
             base.SetUp("ClientEditor", ModuleManager.Category.Server);
+            this.moduleSettings.Add(windowPosition);
         }
 
         public override void OnUpdate()
@@ -41,6 +45,15 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
         {
             GUI.color = ClickMenu.serverColour.Value;
             windowRect = GUI.Window(6, windowRect, new GUI.WindowFunction(DrawWindow), "Clients");
+            if (windowPosition.Update)
+            {
+                windowRect = windowPosition.Value;
+                windowPosition.Update = false;
+            }
+            else
+            {
+                windowPosition.Value = windowRect;
+            }
         }
 
         private void DrawWindow(int windowID)
@@ -71,6 +84,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
                 {
                     target.plainname = newName;
                     target.playername = newName;
+                    target.username = newName;
                 }
                 GUILayout.EndHorizontal();
                 //Kills

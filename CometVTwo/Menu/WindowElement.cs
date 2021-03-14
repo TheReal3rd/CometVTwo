@@ -64,7 +64,7 @@ namespace CometVTwo.menu
                     {
                         foreach (var setting in module.moduleSettings)
                         {
-                            //if(!setting.Visible) continue;
+                            if(!setting.Visible) continue;
                             switch (setting.GetSType())
                             {
                                 case Setting.SettingType.Logic:

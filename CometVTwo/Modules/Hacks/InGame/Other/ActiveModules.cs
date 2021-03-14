@@ -8,11 +8,11 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
     public class ActiveModules : Module
     {
         //Vars
-        private Rect windowRect = new Rect(20, 420, 120, 400);
+        private Rect windowRect = new Rect(20, 420, 200, 400);
         private List<String> activeModules = new List<String>();
 
         //Settings
-        private readonly rectSetting activeRect = new rectSetting("Active", new Rect(20, 420, 120, 400));
+        private readonly rectSetting activeRect = new rectSetting("Active", new Rect(20, 420, 200, 400));
         
         public ActiveModules()
         {

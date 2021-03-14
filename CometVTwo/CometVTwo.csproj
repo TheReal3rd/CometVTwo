@@ -68,6 +68,7 @@
         <Compile Include="Modules\Hacks\InGame\Other\Aimbot.cs" />
         <Compile Include="Modules\Hacks\InGame\Other\ClickMenu.cs" />
         <Compile Include="Modules\Hacks\InGame\Other\CrossHair.cs" />
+        <Compile Include="Modules\Hacks\InGame\Other\PlayerColour.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\GiveAll.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\GodMode.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\Projectile.cs" />
@@ -76,6 +77,8 @@
         <Compile Include="Modules\Hacks\InGame\Server\AdminPassword.cs" />
         <Compile Include="Modules\Hacks\InGame\Server\ClientEditor.cs" />
         <Compile Include="Modules\Hacks\InGame\Server\MapChanger.cs" />
+        <Compile Include="Modules\Hacks\InGame\Server\ServerInfo.cs" />
+        <Compile Include="Modules\Hacks\InGame\Server\SpoofSteam.cs" />
         <Compile Include="Modules\Hacks\MainMenu\ClickMenuMainMenu.cs" />
         <Compile Include="Modules\Hacks\MainMenu\CreateServer.cs" />
         <Compile Include="Modules\Hacks\MainMenu\ForceJoin.cs" />
@@ -91,12 +94,12 @@
         <Compile Include="Settings\rectSetting.cs" />
         <Compile Include="Settings\Setting.cs" />
         <Compile Include="Utils\BindingHandler.cs" />
+        <Compile Include="Utils\Commands.cs" />
         <Compile Include="Utils\FileSystem\FileManager.cs" />
         <Compile Include="Utils\Objects\Five.cs" />
         <Compile Include="Utils\Objects\Pair.cs" />
         <Compile Include="Utils\Objects\Quad.cs" />
         <Compile Include="Utils\Objects\Triplet.cs" />
-        <Compile Include="Utils\ServerUtils.cs" />
         <Compile Include="Utils\Utils.cs" />
     </ItemGroup>
     <ItemGroup>

@@ -20,6 +20,7 @@ namespace CometVTwo.Modules
             modulesList.Add(new Aimbot());
             modulesList.Add(new CrossHair());
             modulesList.Add(new ActiveModules());
+            modulesList.Add(new PlayerColour());
             //Player
             modulesList.Add(new GiveAll());
             modulesList.Add(new GodMode());
@@ -36,6 +37,8 @@ namespace CometVTwo.Modules
             modulesList.Add(new MapChanger());
             modulesList.Add(new ClientEditor());
             modulesList.Add(new AdminPassword());
+            modulesList.Add(new SpoofSteam());
+            modulesList.Add(new ServerInfo());
             //Hidden
             //MainMenu-
             modulesList.Add(new ClickMenuMainMenu());
@@ -103,7 +106,7 @@ namespace CometVTwo.Modules
         {
             foreach (Module module in modulesList)
             {
-                if (module.name == name)
+                if (module.name.ToLower() == name.ToLower())
                 {
                     return module;
                 }

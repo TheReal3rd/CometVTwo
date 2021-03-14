@@ -1,5 +1,3 @@
-using System;
-
 namespace CometVTwo.Settings
 {
     public class Setting
@@ -7,7 +5,7 @@ namespace CometVTwo.Settings
         private string name;
         private string description;
         private SettingType type;
-        private bool visible;
+        private bool visible = true;
 
         public string GetName()
         {

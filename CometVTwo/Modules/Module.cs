@@ -9,7 +9,7 @@ namespace CometVTwo.Modules
         public string name;
         public ModuleManager.Category category;
         public bindSetting bind = new bindSetting("Bind", KeyCode.None);
-        public booleanSetting enabled = new booleanSetting("Enabled", false);
+        public booleanSetting enabled = new booleanSetting("Enabled", false, false);
         public bool showingSettings = false;
         public List<Setting> moduleSettings = new List<Setting>();
 

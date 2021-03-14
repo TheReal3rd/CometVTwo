@@ -39,7 +39,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
 
         private MultiplayerPlayerScript GetTarget()
         {
-            MultiplayerPlayerScript[] players = ServerUtils.MultiplayerPlayerScripts;
+            MultiplayerPlayerScript[] players = (MultiplayerPlayerScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MultiplayerPlayerScript));
             myPlayer  = (MyControllerScript) GameObject.Find("Player").GetComponent(typeof(MyControllerScript));
             foreach (MultiplayerPlayerScript player in players)
             {

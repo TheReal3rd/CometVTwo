@@ -8,7 +8,7 @@ namespace CometVTwo
     public class Main : MonoBehaviour//TODO need to make a window ID manager.
     {
         //Vars
-        public const string version = "0.0.3";
+        public const string version = "0.0.4";
         public const string name = "CometV2";
         public static string OS;
         private static Color colour;
@@ -27,9 +27,6 @@ namespace CometVTwo
             FileManager.LoadAll();
             FileManager.SetLog(false);
             FileManager.Log("Started CometVTwo!");
-            //HarmonyUtil.DoPatching(); TODO look into harmony more to see if we can use it to replace Dusk's Methods
-            //From the looks of it, harmony code must be in the library and acts as an interface so meaning we must edit the games libs.
-            //I don't want to do that cause that could be detected by an AntiCheat or AntiTampering System. 
         }
         public void Update()
         {
@@ -56,7 +53,7 @@ namespace CometVTwo
             ModuleManager.OnGUI();
         }
 
-        public void Cycle()//TODO make one that's better.
+        public void Cycle()//TODO make this better.
         {
             if (!reverse)
             {
@@ -107,6 +104,7 @@ namespace CometVTwo
 
         public void OnDestroy()
         {
+            Commands.Init();
             FileManager.SaveAll();
         }
 

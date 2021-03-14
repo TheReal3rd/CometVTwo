@@ -1,5 +1,3 @@
-using System;
-
 namespace CometVTwo.Settings
 {
     public class booleanSetting : Setting
