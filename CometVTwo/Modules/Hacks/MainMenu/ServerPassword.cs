@@ -30,16 +30,17 @@ namespace CometVTwo.Modules.Hacks.MainMenu
                 {
                     passwords.Add(info);
                 }
-                if (targetPassword != "" || targetPassword != null)
-                {
-                    GameObject.Find("PassName").GetComponent<InputField>().text = targetPassword;
-                }
+            }
+            
+            if (!String.IsNullOrEmpty(targetPassword))
+            {
+                GameObject.Find("PassName").GetComponent<InputField>().text = targetPassword;
             }
         }
 
         public override void OnGUI()
         {
-            GUI.color = ClickMenuMainMenu.windowColour.GetValue();
+            GUI.color = ClickMenuMainMenu.windowColour.Value;
             windowRect = GUI.Window(2, windowRect, new GUI.WindowFunction(DrawWindow), "PasswordList");
         }
 

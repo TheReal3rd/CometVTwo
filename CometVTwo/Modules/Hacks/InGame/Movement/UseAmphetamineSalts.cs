@@ -1,16 +1,15 @@
 using CometVTwo.Settings;
-using CometVTwo.Utils;
 using UnityEngine;
 
-namespace CometVTwo.Modules.Hacks.Movement
+namespace CometVTwo.Modules.Hacks.InGame.Movement
 {
-    public class UseAmphetamineSalts : Module 
+    public class UseAmphetamineSalts : Module //Figure out a way of changing timescale.
     {
         //Vars
         private MyControllerScript myControllerScript;
         
         //Settings
-        private readonly enumSetting mode = new enumSetting("Mode", "SUPERHOT", new[] {"SUPERHOT", "TIMESCALE"});
+        //private readonly enumSetting mode = new enumSetting("Mode", "SUPERHOT", new[] {"SUPERHOT", "TIMESCALE"});
         private readonly doubleSetting timerSpeed = new doubleSetting("TimerSpeed", "Changes the games timescale.", -1,
             5, 0.1, 2);
         
@@ -18,25 +17,18 @@ namespace CometVTwo.Modules.Hacks.Movement
         {
             base.SetUp("UseAmphetamineSalts", ModuleManager.Category.Movement);//My guy Amp 
             this.moduleSettings.Add(timerSpeed);
-            this.moduleSettings.Add(mode);
+            //this.moduleSettings.Add(mode);
         }
 
         public override void OnUpdate()
         {
             myControllerScript = (MyControllerScript) GameObject.Find("Player").GetComponent(typeof(MyControllerScript));
-            if (mode.GetSelected() == "SUPERHOT")
-            {
-               myControllerScript.superhot = true;;
-            }
-            else
-            {
-                UnityEngine.Time.timeScale = timerSpeed.GetValueFloat();
-            }
+            myControllerScript.superhot = true;;
         }
 
         public override void OnDisable()
         {
-            PlayerUtil.myControllerScript.superhot = false;
+            myControllerScript.superhot = false;
         }
     }
 }

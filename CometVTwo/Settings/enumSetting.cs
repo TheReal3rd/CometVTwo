@@ -43,13 +43,10 @@ namespace CometVTwo.Settings
             this.Visible = visible;
         }
 
-        public string GetSelected()
+        public string Selected
         {
-            return selected;
-        }
-        public void SetSelected(string selected)
-        {
-            this.selected = selected;
+            get => selected;
+            set => selected = value;
         }
 
         public string[] GetSelection()

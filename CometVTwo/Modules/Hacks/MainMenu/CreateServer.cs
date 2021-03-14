@@ -35,13 +35,13 @@ namespace CometVTwo.Modules.Hacks.MainMenu
                 map.players.minValue = minPlayers.GetValueInt();
                 map.players.maxValue = maxPlayers.GetValueInt();
                 map.players.value = numPlayers.GetValueInt();
-                map.mm.mapname = mapSelection.GetSelected();
+                map.mm.mapname = mapSelection.Selected;
             }
-            if (autoStart.GetValue())
+            if (autoStart.Value)
             {
                 mapManager[0].CreateGame();
             }
-            this.enabled = false;
+            this.enabled.Value = false;
         }
     }
 }

@@ -52,8 +52,7 @@ namespace CometVTwo.Settings
             Bind,
             Enum,
             Rect,
-            Colour,
-            ClientSelect
+            Colour
         }
     }
 }

@@ -14,6 +14,8 @@ namespace CometVTwo.Modules.Hacks.MainMenu
         
         public readonly static colorSetting windowColour = new colorSetting("WindowColour", Color.magenta);
         private readonly static colorSetting buttonColour = new colorSetting("ButtonColour", Color.magenta);
+        public static readonly booleanSetting rainbowWindow = new booleanSetting("RainbowWindow", false);
+        public static readonly booleanSetting rainbowButton = new booleanSetting("RainbowButtons", false);
         
         public ClickMenuMainMenu()
         {
@@ -21,19 +23,21 @@ namespace CometVTwo.Modules.Hacks.MainMenu
             this.moduleSettings.Add(mainMenuWindow);
             this.moduleSettings.Add(windowColour);
             this.moduleSettings.Add(buttonColour);
+            this.moduleSettings.Add(rainbowWindow);
+            this.moduleSettings.Add(rainbowButton);
         }
 
         public override void OnGUI()
         {
             if (mainMenuWindow.Update)
             {
-                window.WindowRect = mainMenuWindow.GetValue();
+                window.WindowRect = mainMenuWindow.Value;
                 mainMenuWindow.Update = false;
             }
-            GUI.color = windowColour.GetValue();
-            window.ButtonColour = buttonColour.GetValue();
+            GUI.color = rainbowWindow.Value ? Main.cycleColour : windowColour.Value;
+            window.ButtonColour = rainbowButton.Value ? Main.cycleColour : buttonColour.Value;
             window.WindowRect = GUI.Window(1, window.WindowRect, new GUI.WindowFunction(window.Draw), "ModuleMenu");
-            mainMenuWindow.SetValue(window.WindowRect);
+            mainMenuWindow.Value = window.WindowRect;
         }
     }
 }

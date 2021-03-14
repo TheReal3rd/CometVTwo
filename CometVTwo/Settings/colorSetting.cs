@@ -39,14 +39,10 @@ namespace CometVTwo.Settings
             this.Visible = visible;
         }
 
-
-        public Color GetValue()
+        public Color Value
         {
-            return value;
-        }
-        public void SetValue(Color colour)
-        {
-            this.value = colour;
+            get => value;
+            set => this.value = value;
         }
 
         public void ToggleChanging()

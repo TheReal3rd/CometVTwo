@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using CometVTwo.Modules.Hacks.InGame.Movement;
+using CometVTwo.Modules.Hacks.InGame.Other;
+using CometVTwo.Modules.Hacks.InGame.Player;
 using CometVTwo.Modules.Hacks.InGame.Server;
 using CometVTwo.Modules.Hacks.MainMenu;
-using CometVTwo.Modules.Hacks.Movement;
-using CometVTwo.Modules.Hacks.Other;
-using CometVTwo.Modules.Hacks.Player;
 using UnityEngine;
 
 namespace CometVTwo.Modules
@@ -14,10 +14,12 @@ namespace CometVTwo.Modules
 
         public void Init()
         {
-            //InGame
+            //InGame-
             //Other
             modulesList.Add(new ClickMenu());
             modulesList.Add(new Aimbot());
+            modulesList.Add(new CrossHair());
+            modulesList.Add(new ActiveModules());
             //Player
             modulesList.Add(new GiveAll());
             modulesList.Add(new GodMode());
@@ -28,11 +30,14 @@ namespace CometVTwo.Modules
             modulesList.Add(new JumpModifier());
             modulesList.Add(new UseAmphetamineSalts());
             modulesList.Add(new NoClip());
+            modulesList.Add(new Speed());
+            modulesList.Add(new ClimbAnything());
             //Server
             modulesList.Add(new MapChanger());
             modulesList.Add(new ClientEditor());
+            modulesList.Add(new AdminPassword());
             //Hidden
-            //MainMenu
+            //MainMenu-
             modulesList.Add(new ClickMenuMainMenu());
             modulesList.Add(new ServerPassword());
             modulesList.Add(new ForceJoin());
@@ -48,7 +53,7 @@ namespace CometVTwo.Modules
                 {
                     continue;
                 }
-                if (module.enabled)
+                if (module.enabled.Value)
                 {
                     module.OnUpdate();
                 }
@@ -63,7 +68,7 @@ namespace CometVTwo.Modules
                 {
                     continue;
                 }
-                if (module.enabled)
+                if (module.enabled.Value)
                 {
                     module.OnGUI();
                 }
@@ -74,7 +79,7 @@ namespace CometVTwo.Modules
         {
             foreach (Module module in modulesList)
             {
-                if (Input.GetKeyDown(module.bind.GetVelue()))
+                if (Input.GetKeyDown(module.bind.Bind))
                 {
                     Toggle(module);
                 }
@@ -87,14 +92,14 @@ namespace CometVTwo.Modules
             {
                 if (mod.name == module.name && mod.category.Equals(module.category))
                 {
-                    return module.enabled;
+                    return module.enabled.Value;
                 }
             }
 
             return false;
         }
 
-        public Module GetModule(string name)//I wanna get i by Class and not name :'(  
+        public Module GetModule(string name)//I wanna get it by Class and not name :'(  
         {
             foreach (Module module in modulesList)
             {
@@ -110,8 +115,8 @@ namespace CometVTwo.Modules
         public void Toggle(Module module)
         {
             Main.FileManager.Log(module.getName()+" Toggled!");
-            module.enabled = !module.enabled;
-            if (module.enabled)
+            module.enabled.Value = !module.enabled.Value;
+            if (module.enabled.Value)
             {
                 module.OnEnable();
             }

@@ -1,7 +1,7 @@
 using CometVTwo.Settings;
 using UnityEngine;
 
-namespace CometVTwo.Modules.Hacks.Player
+namespace CometVTwo.Modules.Hacks.InGame.Player
 {
     public class GodMode : Module
     {
@@ -30,19 +30,19 @@ namespace CometVTwo.Modules.Hacks.Player
             playerHealthManagement = (PlayerHealthManagement) GameObject.Find("Player").GetComponent(typeof(PlayerHealthManagement));
             multiplayerPlayerInformation = (MultiplayerPlayerInformation) GameObject.Find("Player").GetComponent(typeof(MultiplayerPlayerInformation));
             MultiplayerPlayerScripts = (MultiplayerPlayerScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MultiplayerPlayerScript));
-            if (modes.GetSelected() == "BUILTIN")
+            if (modes.Selected == "BUILTIN")
             {
                 playerHealthManagement.godmode = true;
             }
-            else if(modes.GetSelected() == "HEALTH")
+            else if(modes.Selected == "HEALTH")
             {
                 playerHealthManagement.myhealth = 1000f;
             }
-            else if(modes.GetSelected() == "SET")
+            else if(modes.Selected == "SET")
             {
                 playerHealthManagement.myhealth = health.GetValueFloat();
             }
-            else if(modes.GetSelected() == "PICKUP")
+            else if(modes.Selected == "PICKUP")
             {
                 if (playerHealthManagement.myhealth < 200f)
                 {
@@ -50,7 +50,7 @@ namespace CometVTwo.Modules.Hacks.Player
                     script.pickupholyhealth(new GameObject());
                 }
             }
-            else if(modes.GetSelected() == "CLIENT")
+            else if(modes.Selected == "CLIENT")
             {
                 foreach (var clients in MultiplayerPlayerScripts)
                 {

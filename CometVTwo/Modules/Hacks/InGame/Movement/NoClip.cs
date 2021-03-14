@@ -1,12 +1,12 @@
 using CometVTwo.Settings;
 using UnityEngine;
 
-namespace CometVTwo.Modules.Hacks.Movement
+namespace CometVTwo.Modules.Hacks.InGame.Movement
 {
     public class NoClip : Module
     {
         //Vars
-        private Vector3 playerPos;
+        private static Vector3 playerPos;
         
         //Settings
         private readonly doubleSetting speed = new doubleSetting("Speed", 1, 100, 1, 2);
@@ -56,6 +56,11 @@ namespace CometVTwo.Modules.Hacks.Movement
                 playerPos -= new Vector3(up.x, (up.y / 10) * this.speed.GetValueFloat() , up.z);
             }
             ((MyControllerScript[])UnityEngine.Object.FindObjectsOfType(typeof(MyControllerScript)))[0].transform.position = playerPos;
+        }
+
+        public static Vector3 PlayerPos
+        {
+            set => playerPos = value;
         }
     }
 }

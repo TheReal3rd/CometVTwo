@@ -20,14 +20,11 @@ namespace CometVTwo.Settings
             base.SetDescription(description);
             base.SetType(SettingType.Rect);
         }
-        
-        public Rect GetValue()
+
+        public Rect Value
         {
-            return value;
-        }
-        public void SetValue(Rect rect)
-        {
-            this.value = rect;
+            get => value;
+            set => this.value = value;
         }
 
         public bool Update

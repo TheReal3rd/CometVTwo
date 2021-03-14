@@ -32,8 +32,8 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
         public override void OnEnable()
         {
             multiplayerPlayerScript = (MultiplayerPlayerScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MultiplayerPlayerScript));
-            multiplayerPlayerScript[0].changeMap(mapSelection.GetSelected());
-            this.enabled = false;
+            multiplayerPlayerScript[0].changeMap(mapSelection.Selected);
+            this.enabled.Value = false;
         }
     }
 }

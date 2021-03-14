@@ -32,7 +32,7 @@ namespace CometVTwo.menu
                 {
                     GUILayout.BeginVertical(new GUILayoutOption[0]);
                     GUILayout.BeginHorizontal(new GUILayoutOption[0]);
-                    if (module.enabled)
+                    if (module.enabled.Value)
                     {
                         GUI.color = Color.green;
                     }
@@ -70,7 +70,7 @@ namespace CometVTwo.menu
                                 case Setting.SettingType.Logic:
                                     var boolean = (booleanSetting) setting;
                                     GUI.color = Color.white;
-                                    if (boolean.GetValue())
+                                    if (boolean.Value)
                                     {
                                         GUI.color = Color.green;
                                     }
@@ -105,9 +105,9 @@ namespace CometVTwo.menu
                                     var bind = (bindSetting) setting;
                                     GUILayout.BeginHorizontal(new GUILayoutOption[0]);
                                     GUI.color = Color.white;
-                                    GUILayout.Label(String.Format("Bind: {0}", bind.GetVelue().ToString()), new GUILayoutOption[0]);
+                                    GUILayout.Label(String.Format("Bind: {0}", bind.Bind.ToString()), new GUILayoutOption[0]);
                                     GUI.color = buttonColour;
-                                    if (bind.GetVelue().Equals(KeyCode.None) || bind.GetVelue().Equals(null))
+                                    if (bind.Bind.Equals(KeyCode.None) || bind.Bind.Equals(null))
                                     {
                                         if (GUILayout.Button("Set", new GUILayoutOption[0]))
                                         {
@@ -118,7 +118,7 @@ namespace CometVTwo.menu
                                     {
                                         if (GUILayout.Button("Del", new GUILayoutOption[0]))
                                         {
-                                            bind.SetValue(KeyCode.None);
+                                            bind.Bind = KeyCode.None;
                                         }
                                     }
                                     GUILayout.EndHorizontal();
@@ -136,7 +136,7 @@ namespace CometVTwo.menu
                                     }
                                     if (!select.IsShowing())
                                     {
-                                        if (GUILayout.Button(String.Format("{0}: {1}", select.GetName(), select.GetSelected()), new GUILayoutOption[0]))
+                                        if (GUILayout.Button(String.Format("{0}: {1}", select.GetName(), select.Selected), new GUILayoutOption[0]))
                                         {
                                             select.ToggleShowing();
                                         }
@@ -148,7 +148,7 @@ namespace CometVTwo.menu
                                         {
                                             if (GUILayout.Button(selection, new GUILayoutOption[0]))
                                             {
-                                                select.SetSelected(selection);
+                                                select.Selected = selection;
                                                 select.ToggleShowing();
                                             }
                                         }
@@ -159,8 +159,8 @@ namespace CometVTwo.menu
                                     var colour = (colorSetting) setting;
                                     if (!colour.IsChanging())
                                     {
-                                        GUI.color = colour.GetValue();
-                                        colour.rgbNew = Utils.Utils.GetRGB(colour.GetValue());
+                                        GUI.color = colour.Value;
+                                        colour.rgbNew = Utils.Utils.GetRGB(colour.Value);
                                         if (GUILayout.Button(String.Format("Change: {0}", colour.GetName()), new GUILayoutOption[0]))
                                         {
                                             colour.ToggleChanging();
@@ -170,7 +170,7 @@ namespace CometVTwo.menu
                                     {
                                         if (colour.rgbNew.Length <= 0)
                                         {
-                                            colour.rgbNew = Utils.Utils.GetRGB(colour.GetValue());
+                                            colour.rgbNew = Utils.Utils.GetRGB(colour.Value);
                                         }
                                         GUI.color = Utils.Utils.RGBToColour(colour.rgbNew);
                                         GUILayout.Label("Name: "+colour.GetName(), new GUILayoutOption[0]);
@@ -183,7 +183,7 @@ namespace CometVTwo.menu
                                         GUI.color = buttonColour;
                                         if (GUILayout.Button("Set", new GUILayoutOption[0]))
                                         {
-                                            colour.SetValue(Utils.Utils.RGBToColour(colour.rgbNew));
+                                            colour.Value = Utils.Utils.RGBToColour(colour.rgbNew);
                                             colour.ToggleChanging();
                                         }
                                     }

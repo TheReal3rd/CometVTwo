@@ -14,7 +14,7 @@ namespace CometVTwo.Utils
             {
                 if (Input.GetKeyDown(keycode))
                 {
-                    targetModule.bind.SetValue(keycode);
+                    targetModule.bind.Bind = keycode;
                     binding = false;
                 }
             }

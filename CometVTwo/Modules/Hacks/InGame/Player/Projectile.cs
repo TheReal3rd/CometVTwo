@@ -1,7 +1,7 @@
 using CometVTwo.Settings;
 using UnityEngine;
 
-namespace CometVTwo.Modules.Hacks.Player
+namespace CometVTwo.Modules.Hacks.InGame.Player
 {
     public class Projectile : Module
     {
@@ -46,17 +46,17 @@ namespace CometVTwo.Modules.Hacks.Player
         {
             attackScript = (AttackScript) GameObject.Find("WeaponAnimator").GetComponent(typeof(AttackScript));
             selectionScript = (SelectionScript) GameObject.Find("WeaponAnimator").GetComponent(typeof(SelectionScript));
-            if (selectionScript.selectedweapon == 1 && (!semiAuto.GetValue() && Input.GetKey(KeyCode.Mouse0)) || (semiAuto.GetValue() && Input.GetKeyDown(KeyCode.Mouse0)))
+            if (selectionScript.selectedweapon == 1 && (!semiAuto.Value && Input.GetKey(KeyCode.Mouse0)) || (semiAuto.Value && Input.GetKeyDown(KeyCode.Mouse0)))
             {
-                if (projectile.GetSelected() == "BULLET")
+                if (projectile.Selected == "BULLET")
                 {
-                    attackScript.shootbullet(inaccuracy.GetValueFloat(),1000f,shotNum.GetValueInt(), damage.GetValueFloat(), 1,speed.GetValueFloat(), upPower.GetValueFloat(), doricnoise.GetValue(), ignoreTracers.GetValue(), 1);
+                    attackScript.shootbullet(inaccuracy.GetValueFloat(),1000f,shotNum.GetValueInt(), damage.GetValueFloat(), 1,speed.GetValueFloat(), upPower.GetValueFloat(), doricnoise.Value, ignoreTracers.Value, 1);
                 }
-                else if(projectile.GetSelected() == "ARROW")
+                else if(projectile.Selected == "ARROW")
                 {
                     attackScript.throwprojectile(0,speed.GetValueFloat(), shotNum.GetValueFloat(), inaccuracy.GetValueFloat());
                 } 
-                else if (projectile.GetSelected() == "RIVET")
+                else if (projectile.Selected == "RIVET")
                 {
                     attackScript.throwprojectile(1,speed.GetValueFloat(), shotNum.GetValueFloat(), inaccuracy.GetValueFloat());
                 }
@@ -65,11 +65,6 @@ namespace CometVTwo.Modules.Hacks.Player
                     attackScript.throwprojectile(2,speed.GetValueFloat(), shotNum.GetValueFloat(), inaccuracy.GetValueFloat());
                 }
             }
-        }
-
-        private bool IsModeBullet()
-        {
-            return projectile.GetSelected() == "BULLET";
         }
     }
 }

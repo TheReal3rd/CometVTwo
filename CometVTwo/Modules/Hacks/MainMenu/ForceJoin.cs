@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace CometVTwo.Modules.Hacks.MainMenu
 {
-    public class ForceJoin : Module
+    public class ForceJoin : Module//Join full and password protected servers.
     {
         private MapManager[] MapManager;
         private ServerEntryScript[] serverEntryScript;
@@ -46,13 +46,8 @@ namespace CometVTwo.Modules.Hacks.MainMenu
 
         public override void OnGUI()
         {
-            GUI.color = ClickMenuMainMenu.windowColour.GetValue();
+            GUI.color = ClickMenuMainMenu.windowColour.Value;
             windowRect = GUI.Window(3, windowRect, new GUI.WindowFunction(DrawWindow), "ServerList");
-        }
-
-        public override void OnDisable()
-        {
-            serverList.Clear();
         }
 
         private void DrawWindow(int windowID)
@@ -76,6 +71,11 @@ namespace CometVTwo.Modules.Hacks.MainMenu
             GUILayout.EndVertical();
             GUILayout.EndScrollView();
             GUI.DragWindow(new Rect(0,0,1000,1000));
+        }
+        
+        public override void OnDisable()
+        {
+            serverList.Clear();
         }
         
         public bool Contains(Quad<String, String, String, CSteamID> input)

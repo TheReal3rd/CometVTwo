@@ -1,12 +1,8 @@
 using System;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using CometVTwo.menu;
 using CometVTwo.Modules;
-using CometVTwo.Modules.Hacks.MainMenu;
-using CometVTwo.Modules.Hacks.Other;
 using CometVTwo.Settings;
 using UnityEngine;
 
@@ -27,15 +23,15 @@ namespace CometVTwo.Utils.FileSystem
                 {
                     case Setting.SettingType.Enum:
                         var selected = (enumSetting) setting;
-                        writer.WriteAttributeString(selected.GetName(), selected.GetSelected());
+                        writer.WriteAttributeString(selected.GetName(), selected.Selected);
                         break;
                     case Setting.SettingType.Bind:
                         var bind = (bindSetting) setting;
-                        writer.WriteAttributeString(bind.GetName(), bind.GetVelue().ToString());
+                        writer.WriteAttributeString(bind.GetName(), bind.Bind.ToString());
                         break;
                     case Setting.SettingType.Logic:
                         var logic = (booleanSetting) setting;
-                        writer.WriteAttributeString(logic.GetName(), logic.GetValue().ToString());
+                        writer.WriteAttributeString(logic.GetName(), logic.Value.ToString());
                         break;
                     case Setting.SettingType.Numeric:
                         var numeric = (doubleSetting) setting;
@@ -43,17 +39,20 @@ namespace CometVTwo.Utils.FileSystem
                         break;
                     case Setting.SettingType.Rect:
                         var rect = (rectSetting) setting;
-                        Rect value = rect.GetValue();
+                        Rect value = rect.Value;
+                        if (value.width == 0)
+                        {
+                            value.width = 360;
+                            value.height = 400;
+                        }
                         string formatting = String.Format("{0},{1},{2},{3}", value.x, value.y, value.width, value.height);
                         writer.WriteAttributeString(rect.GetName(), formatting);
                         break;
                     case Setting.SettingType.Colour:
                         var colour = (colorSetting) setting;
-                        int[] rgb = Utils.GetRGB(colour.GetValue());
+                        int[] rgb = Utils.GetRGB(colour.Value);
                         string formatting1 = String.Format("{0},{1},{2}", rgb[0], rgb[1], rgb[2]);
                         writer.WriteAttributeString(colour.GetName(), formatting1);
-                        break;
-                    case Setting.SettingType.ClientSelect://No reason to save this.
                         break;
                 }
             }
@@ -86,35 +85,38 @@ namespace CometVTwo.Utils.FileSystem
                                 string content = xmlReader.GetAttribute(selected.GetName());
                                 if (selected.GetSelection().Contains(content))
                                 {
-                                    selected.SetSelected(content);
+                                    selected.Selected = content;
                                 }
                                 break;
                             case Setting.SettingType.Bind:
                                 var bind = (bindSetting) setting;
-                                bind.SetValue(stringToKeyCode(xmlReader.GetAttribute(bind.GetName())));
+                                bind.Bind = stringToKeyCode(xmlReader.GetAttribute(bind.GetName()));
                                 break;
                             case Setting.SettingType.Logic:
                                 var logic = (booleanSetting) setting;
-                                logic.SetValue(Convert.ToBoolean(xmlReader.GetAttribute(logic.GetName())));
+                                logic.Value = Convert.ToBoolean(xmlReader.GetAttribute(logic.GetName()));
                                 break;
                             case Setting.SettingType.Numeric:
                                 var numeric = (doubleSetting) setting;
                                 numeric.SetValue(Convert.ToDouble(xmlReader.GetAttribute(numeric.GetName())));
                                 break;
-                            case Setting.SettingType.Rect://TODO make this dynamic and not depend on category info.
+                            case Setting.SettingType.Rect://TODO fix the zero issue.
                                 var rect = (rectSetting) setting;
                                 string[] data = xmlReader.GetAttribute(rect.GetName()).Split(',');
                                 Rect data1 = new Rect(float.Parse(data[0]), float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
+                                if (data1.width == 0)
+                                {
+                                    data1.width = 360;
+                                    data1.height = 400;
+                                }
                                 rect.Update = true;
-                                rect.SetValue(data1);
+                                rect.Value = data1;
                                 break;
                             case Setting.SettingType.Colour:
                                 var colour = (colorSetting) setting;
                                 string[] data3 = xmlReader.GetAttribute(colour.GetName()).Split(',');
                                 Color color = Utils.RGBToColour(new []{ int.Parse(data3[0]), int.Parse(data3[1]), int.Parse(data3[2]) });
-                                colour.SetValue(color);
-                                break;
-                            case Setting.SettingType.ClientSelect://No reason to save this.
+                                colour.Value = color;
                                 break;
                         }
                     }

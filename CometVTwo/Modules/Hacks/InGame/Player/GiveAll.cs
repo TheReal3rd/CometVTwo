@@ -1,7 +1,7 @@
 using CometVTwo.Utils;
 using UnityEngine;
 
-namespace CometVTwo.Modules.Hacks.Player
+namespace CometVTwo.Modules.Hacks.InGame.Player
 {
     public class GiveAll : Module
     {

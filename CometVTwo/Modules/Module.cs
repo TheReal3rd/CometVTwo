@@ -9,7 +9,7 @@ namespace CometVTwo.Modules
         public string name;
         public ModuleManager.Category category;
         public bindSetting bind = new bindSetting("Bind", KeyCode.None);
-        public bool enabled = false;
+        public booleanSetting enabled = new booleanSetting("Enabled", false);
         public bool showingSettings = false;
         public List<Setting> moduleSettings = new List<Setting>();
 
@@ -17,14 +17,16 @@ namespace CometVTwo.Modules
         {
             this.name = name;
             this.category = category;
-            bind.SetValue(bindSet);
+            bind.Bind = bindSet;
             this.moduleSettings.Add(bind);
+            this.moduleSettings.Add(enabled);
         }
         public void SetUp(string name, ModuleManager.Category category)
         {
             this.name = name;
             this.category = category;
             this.moduleSettings.Add(bind);
+            this.moduleSettings.Add(enabled);
         }
 
         

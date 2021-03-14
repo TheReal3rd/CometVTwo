@@ -59,20 +59,21 @@
         <Compile Include="Loader.cs" />
         <Compile Include="Main.cs" />
         <Compile Include="Menu\WindowElement.cs" />
-        <Compile Include="Modules\Hacks\Hidden\LoadTest.cs" />
-        <Compile Include="Modules\Hacks\Hidden\SaveTest.cs" />
-        <Compile Include="Modules\Hacks\Hidden\TestModule.cs" />
-        <Compile Include="Modules\Hacks\Hidden\TestModule2.cs" />
+        <Compile Include="Modules\Hacks\InGame\Movement\ClimbAnything.cs" />
         <Compile Include="Modules\Hacks\InGame\Movement\JumpModifier.cs" />
         <Compile Include="Modules\Hacks\InGame\Movement\NoClip.cs" />
+        <Compile Include="Modules\Hacks\InGame\Movement\Speed.cs" />
         <Compile Include="Modules\Hacks\InGame\Movement\UseAmphetamineSalts.cs" />
+        <Compile Include="Modules\Hacks\InGame\Other\ActiveModules.cs" />
         <Compile Include="Modules\Hacks\InGame\Other\Aimbot.cs" />
         <Compile Include="Modules\Hacks\InGame\Other\ClickMenu.cs" />
+        <Compile Include="Modules\Hacks\InGame\Other\CrossHair.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\GiveAll.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\GodMode.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\Projectile.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\RapidFire.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\UnlimitedAmmo.cs" />
+        <Compile Include="Modules\Hacks\InGame\Server\AdminPassword.cs" />
         <Compile Include="Modules\Hacks\InGame\Server\ClientEditor.cs" />
         <Compile Include="Modules\Hacks\InGame\Server\MapChanger.cs" />
         <Compile Include="Modules\Hacks\MainMenu\ClickMenuMainMenu.cs" />
@@ -95,9 +96,11 @@
         <Compile Include="Utils\Objects\Pair.cs" />
         <Compile Include="Utils\Objects\Quad.cs" />
         <Compile Include="Utils\Objects\Triplet.cs" />
-        <Compile Include="Utils\PlayerUtil.cs" />
         <Compile Include="Utils\ServerUtils.cs" />
         <Compile Include="Utils\Utils.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Modules\Hacks\Hidden" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

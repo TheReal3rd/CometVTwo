@@ -2,7 +2,7 @@ using CometVTwo.Settings;
 using CometVTwo.Utils;
 using UnityEngine;
 
-namespace CometVTwo.Modules.Hacks.Movement
+namespace CometVTwo.Modules.Hacks.InGame.Movement
 {
     public class JumpModifier : Module
     {
@@ -29,7 +29,7 @@ namespace CometVTwo.Modules.Hacks.Movement
         {
             myControllerScript = (MyControllerScript) GameObject.Find("Player").GetComponent(typeof(MyControllerScript));
             myControllerScript.jumpamount = height.GetValueFloat();
-            if (allowGravityForce.GetValue())
+            if (allowGravityForce.Value)
             {
                 myControllerScript.gravityforce = gravity.GetValueFloat();
             }

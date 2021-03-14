@@ -35,14 +35,11 @@ namespace CometVTwo.Settings
             this.Visible = visible;
             this.bind = bind;
         }
-        
-        public KeyCode GetVelue()
+
+        public KeyCode Bind
         {
-            return bind;
-        }
-        public void SetValue(KeyCode bind)
-        {
-            this.bind = bind;
+            get => bind;
+            set => bind = value;
         }
     }
 }

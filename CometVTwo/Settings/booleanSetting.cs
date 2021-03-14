@@ -37,13 +37,10 @@ namespace CometVTwo.Settings
             this.Visible = visible;
         }
 
-        public bool GetValue()
+        public bool Value
         {
-            return value;
-        }
-        public void SetValue(bool value)
-        {
-            this.value = value;
+            get => value;
+            set => this.value = value;
         }
 
         public void Toggle()

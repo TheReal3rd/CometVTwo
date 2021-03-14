@@ -1,7 +1,7 @@
 using CometVTwo.Settings;
 using UnityEngine;
 
-namespace CometVTwo.Modules.Hacks.Player
+namespace CometVTwo.Modules.Hacks.InGame.Player
 {
     public class RapidFire : Module
     {
@@ -21,7 +21,7 @@ namespace CometVTwo.Modules.Hacks.Player
         public override void OnUpdate()
         {
             attackScript = (AttackScript) GameObject.Find("WeaponAnimator").GetComponent(typeof(AttackScript));
-            if (autoUnlimited.GetValue())
+            if (autoUnlimited.Value)
             {
                 Module ammo = Main.ModuleManager.GetModule("UnlimitedAmmo");
                 if (!Main.ModuleManager.IsModuleActive(ammo))
@@ -35,7 +35,7 @@ namespace CometVTwo.Modules.Hacks.Player
 
         public override void OnDisable()
         {
-            if (autoUnlimited.GetValue())
+            if (autoUnlimited.Value)
             {
                 Module ammo = Main.ModuleManager.GetModule("UnlimitedAmmo");
                 if (Main.ModuleManager.IsModuleActive(ammo))
