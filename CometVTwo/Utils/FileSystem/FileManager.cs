@@ -11,10 +11,15 @@ namespace CometVTwo.Utils.FileSystem
     public class FileManager
     {
         private bool logging = false;
-        
+
         public void SaveModule(Module module)
         {
-            XmlWriter writer = XmlWriter.Create(Application.dataPath+"/"+module.name+".xml");//TODO make it save in a folder plus working on Linux(Works) and Windows(Not tested yet.).
+            string path = Application.dataPath + "/comet/" + module.name + ".xml";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(Application.dataPath + "/comet");
+            }
+            XmlWriter writer = XmlWriter.Create(path);
             writer.WriteStartDocument();
             writer.WriteStartElement("Settings");
             foreach (Setting setting in module.moduleSettings)
@@ -65,71 +70,95 @@ namespace CometVTwo.Utils.FileSystem
         {
             foreach (var module in Main.ModuleManager.modulesList)
             {
-                SaveModule(module);
+                try
+                {
+                    SaveModule(module);
+                }
+                catch (Exception e)
+                {
+                    Main.FileManager.Log("Failed to save "+module.getName()+" settings! Error:\n\n"+e.ToString()+"\n\n");
+                }
             }
         }
 
         public void LoadModule(Module module)
         {
-            XmlReader xmlReader = XmlReader.Create(Application.dataPath+"/"+module.getName()+".xml");
-            while (xmlReader.Read())
+            string path = Application.dataPath + "/comet/" + module.getName() + ".xml";
+            if (File.Exists(path))
             {
-                foreach (Setting setting in module.moduleSettings)
+                XmlReader xmlReader = XmlReader.Create(path);
+                while (xmlReader.Read())
                 {
-                    if (xmlReader.NodeType.Equals(XmlNodeType.Element) && xmlReader.Name == "Settings" && xmlReader.HasAttributes)
+                    foreach (Setting setting in module.moduleSettings)
                     {
-                        switch (setting.GetSType())
+                        if (xmlReader.NodeType.Equals(XmlNodeType.Element) && xmlReader.Name == "Settings" &&
+                            xmlReader.HasAttributes)
                         {
-                            case Setting.SettingType.Enum:
-                                var selected = (enumSetting) setting;
-                                string content = xmlReader.GetAttribute(selected.GetName());
-                                if (selected.GetSelection().Contains(content))
-                                {
-                                    selected.Selected = content;
-                                }
-                                break;
-                            case Setting.SettingType.Bind:
-                                var bind = (bindSetting) setting;
-                                bind.Bind = stringToKeyCode(xmlReader.GetAttribute(bind.GetName()));
-                                break;
-                            case Setting.SettingType.Logic:
-                                var logic = (booleanSetting) setting;
-                                logic.Value = Convert.ToBoolean(xmlReader.GetAttribute(logic.GetName()));
-                                break;
-                            case Setting.SettingType.Numeric:
-                                var numeric = (doubleSetting) setting;
-                                numeric.SetValue(Convert.ToDouble(xmlReader.GetAttribute(numeric.GetName())));
-                                break;
-                            case Setting.SettingType.Rect://TODO fix the zero issue.
-                                var rect = (rectSetting) setting;
-                                string[] data = xmlReader.GetAttribute(rect.GetName()).Split(',');
-                                Rect data1 = new Rect(float.Parse(data[0]), float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
-                                if (data1.width == 0)
-                                {
-                                    data1.width = 360;
-                                    data1.height = 400;
-                                }
-                                rect.Update = true;
-                                rect.Value = data1;
-                                break;
-                            case Setting.SettingType.Colour:
-                                var colour = (colorSetting) setting;
-                                string[] data3 = xmlReader.GetAttribute(colour.GetName()).Split(',');
-                                Color color = Utils.RGBToColour(new []{ int.Parse(data3[0]), int.Parse(data3[1]), int.Parse(data3[2]) });
-                                colour.Value = color;
-                                break;
+                            switch (setting.GetSType())
+                            {
+                                case Setting.SettingType.Enum:
+                                    var selected = (enumSetting) setting;
+                                    string content = xmlReader.GetAttribute(selected.GetName());
+                                    if (selected.GetSelection().Contains(content))
+                                    {
+                                        selected.Selected = content;
+                                    }
+
+                                    break;
+                                case Setting.SettingType.Bind:
+                                    var bind = (bindSetting) setting;
+                                    bind.Bind = stringToKeyCode(xmlReader.GetAttribute(bind.GetName()));
+                                    break;
+                                case Setting.SettingType.Logic:
+                                    var logic = (booleanSetting) setting;
+                                    logic.Value = Convert.ToBoolean(xmlReader.GetAttribute(logic.GetName()));
+                                    break;
+                                case Setting.SettingType.Numeric:
+                                    var numeric = (doubleSetting) setting;
+                                    numeric.SetValue(Convert.ToDouble(xmlReader.GetAttribute(numeric.GetName())));
+                                    break;
+                                case Setting.SettingType.Rect:
+                                    var rect = (rectSetting) setting;
+                                    string[] data = xmlReader.GetAttribute(rect.GetName()).Split(',');
+                                    Rect data1 = new Rect(float.Parse(data[0]), float.Parse(data[1]),
+                                        float.Parse(data[2]), float.Parse(data[3]));
+                                    if (data1.width == 0)
+                                    {
+                                        data1.width = 360;
+                                        data1.height = 400;
+                                    }
+
+                                    rect.Update = true;
+                                    rect.Value = data1;
+                                    break;
+                                case Setting.SettingType.Colour:
+                                    var colour = (colorSetting) setting;
+                                    string[] data3 = xmlReader.GetAttribute(colour.GetName()).Split(',');
+                                    Color color = Utils.RGBToColour(new[]
+                                        {int.Parse(data3[0]), int.Parse(data3[1]), int.Parse(data3[2])});
+                                    colour.Value = color;
+                                    break;
+                            }
                         }
                     }
                 }
+
+                xmlReader.Close();
             }
-            xmlReader.Close();
         }
         
         public void LoadAll()
         {
             foreach (var module in Main.ModuleManager.modulesList)
             {
-                LoadModule(module);
+                try
+                {
+                    LoadModule(module);
+                }
+                catch (Exception e)
+                {
+                    Main.FileManager.Log("Failed to load "+module.getName()+" settings! Error:\n\n"+e+"\n\n");
+                }
             }
         }
 
@@ -151,16 +180,17 @@ namespace CometVTwo.Utils.FileSystem
             {
                 try
                 {
-                    StreamWriter writer = File.AppendText(Application.dataPath + "/log.txt");
+                    StreamWriter writer = File.AppendText(Application.dataPath + "/comet/log.txt");
                     writer.WriteLine(data);
                     writer.Close();
                 }
-                finally
+                catch (Exception e)
                 {
-                    //Do nothing its not like we can log it lol.
+                    //Do nothing we can't log it if the logger breaks.
                 }
             }
         }
+
         public void SetLog(bool value)
         {
             logging = value;

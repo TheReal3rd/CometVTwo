@@ -15,17 +15,24 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
         public override void OnUpdate()
         {
             multiplayerPlayerInformation = (MultiplayerPlayerInformation) GameObject.Find("Player").GetComponent(typeof(MultiplayerPlayerInformation));
-            DoSpoofing(multiplayerPlayerInformation.myplayer.name);
+            if (!multiplayerPlayerInformation.Equals(null))
+            {
+                DoSpoofing(multiplayerPlayerInformation.myplayer.name);
+            }
         }
 
-        public void DoSpoofing(string name)
+        private void DoSpoofing(string name)
         {
-            foreach (var player in (NetworkPlayer[]) UnityEngine.Object.FindObjectsOfType(typeof(NetworkPlayer)))
+            NetworkPlayer[] networkPlayers = (NetworkPlayer[]) UnityEngine.Object.FindObjectsOfType(typeof(NetworkPlayer));
+            if (networkPlayers.Length > 0)
             {
-                if (player.igName == name)
+                foreach (var player in networkPlayers)
                 {
-                    player.steamId = UInt64.MaxValue;
-                    player.steamName = "player";
+                    if (player.igName == name)
+                    {
+                        player.NetworksteamId = UInt64.MaxValue;
+                        player.steamName = "player";
+                    }
                 }
             }
         }

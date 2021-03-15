@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace CometVTwo
 {
+    /// <summary>
+    /// For injection but not tested...
+    /// </summary>
     public class Loader
     {
         private static GameObject _mainClass;

@@ -44,7 +44,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
         public override void OnGUI()
         {
             GUI.color = ClickMenu.serverColour.Value;
-            windowRect = GUI.Window(6, windowRect, new GUI.WindowFunction(DrawWindow), "Clients");
+            windowRect = Main.WindowManager.DrawWindow(windowRect, new GUI.WindowFunction(DrawWindow), "Clients");
             if (windowPosition.Update)
             {
                 windowRect = windowPosition.Value;
@@ -82,9 +82,10 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
                 newName = GUILayout.TextField(newName, new GUILayoutOption[0]);
                 if (GUILayout.Button("Apply", new GUILayoutOption[0]))
                 {
-                    target.plainname = newName;
-                    target.playername = newName;
-                    target.username = newName;
+                    //target.plainname = newName;
+                    //target.playername = newName;
+                    //target.username = newName;
+                    target.CmdSetName(newName, newName);
                 }
                 GUILayout.EndHorizontal();
                 //Kills

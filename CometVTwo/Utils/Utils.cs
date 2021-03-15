@@ -12,7 +12,6 @@ namespace CometVTwo.Utils
         {
             return new Color((float)rgb[0] / 255, (float)rgb[1] / 255, (float)rgb[2] / 255, 1.0f);
         }
-
         public static Color RGBToColour(int r, int g, int b)
         {
             return new Color((float)r / 255, (float)g / 255, (float)b / 255, 1.0f);

@@ -44,10 +44,25 @@ namespace CometVTwo.Modules.Hacks.InGame.Player
             }
             else if(modes.Selected == "PICKUP")
             {
-                if (playerHealthManagement.myhealth < 200f)
+                foreach (var clients in MultiplayerPlayerScripts)
                 {
-                    PlayerPickupScript script = (PlayerPickupScript) GameObject.Find("Player").GetComponent(typeof(PlayerPickupScript));;
-                    script.pickupholyhealth(new GameObject());
+                    if (clients.name == multiplayerPlayerInformation.myplayer.name)
+                    {
+                        if (!clients.isServer)
+                        {
+                            if (playerHealthManagement.myhealth < 200f)
+                            {
+                                PlayerPickupScript script =
+                                    (PlayerPickupScript) GameObject.Find("Player")
+                                        .GetComponent(typeof(PlayerPickupScript));
+                                script.pickupholyhealth(new GameObject());
+                            }
+                        }
+                        else
+                        {
+                            clients.CmdSetHealth(health.GetValueFloat(), armour.GetValueFloat());
+                        }
+                    }
                 }
             }
             else if(modes.Selected == "CLIENT")

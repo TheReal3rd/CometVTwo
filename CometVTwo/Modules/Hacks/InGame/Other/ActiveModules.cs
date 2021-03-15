@@ -23,7 +23,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
         public override void OnGUI()
         {
             GUI.color = ClickMenu.otherColour.Value;
-            windowRect = GUI.Window(7, windowRect, new GUI.WindowFunction(DrawWindow), "ActiveModules");
+            windowRect = Main.WindowManager.DrawWindow(windowRect, new GUI.WindowFunction(DrawWindow), "ActiveModules");
             if (activeRect.Update)
             {
                 windowRect = activeRect.Value;
@@ -40,6 +40,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
             activeModules.Clear();
             foreach (Module module in Main.ModuleManager.modulesList)
             {
+                if(module.category.Equals(ModuleManager.Category.MainMenu)) continue;
                 if (module.enabled.Value)
                 {
                     activeModules.Add(module.getName());

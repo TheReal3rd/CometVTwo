@@ -9,7 +9,6 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
     public class ServerInfo : Module
     {
         //Vars
-        private GameRules gameRules;
         private Rect windowRect = new Rect(20, 420, 200, 400);
         private List<String> infoList = new List<String>();
         //Settings
@@ -31,14 +30,14 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
 
         public override void OnUpdate()
         {
-            gameRules = (GameRules) UnityEngine.Object.FindObjectsOfType(typeof(GameRules))[0];
+            GameRules gameRules = (GameRules) UnityEngine.Object.FindObjectsOfType(typeof(GameRules))[0];
             infoList.Clear();
-            if (playerCount.Value)
+            if (playerCount.Value && !gameRules.Equals(null))
             {
                 string count = String.Format("PlayerCount: {0}/{1}", gameRules.numplayers, gameRules.maxplayers);
                 infoList.Add(count);
             }
-            if (readyPlayers.Value)
+            if (readyPlayers.Value && !gameRules.Equals(null))
             {
                 string ready = String.Format("ReadyPlayers: {0}/{1}", gameRules.readyplayers, gameRules.numplayers);
                 infoList.Add(ready);
@@ -47,7 +46,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
             {
                 infoList.Add("ServerName: " + gameRules.servername.Substring(0, 15));
             }
-            if (currentMap.Value)
+            if (currentMap.Value && !String.IsNullOrEmpty(gameRules.currentMap))
             {
                 infoList.Add("MapName: "+gameRules.currentMap);
             }
@@ -58,7 +57,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
         public override void OnGUI()
         {
             GUI.color = ClickMenu.serverColour.Value;
-            windowRect = GUI.Window(8, windowRect, new GUI.WindowFunction(DrawWindow), "ServerInfo");
+            windowRect = Main.WindowManager.DrawWindow(windowRect, new GUI.WindowFunction(DrawWindow), "ServerInfo");
             if (serverInfoRect.Update)
             {
                 windowRect = serverInfoRect.Value;
@@ -73,10 +72,14 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
         private void DrawWindow(int windowID)
         {
             GUILayout.BeginVertical(new GUILayoutOption[0]);
-            foreach (var info in infoList)
+            if (infoList.Count > 0)
             {
-                GUILayout.Label(info, new GUILayoutOption[0]);
+                foreach (var info in infoList)
+                {
+                    GUILayout.Label(info, new GUILayoutOption[0]);
+                }
             }
+
             GUILayout.EndVertical();
             GUI.DragWindow(new Rect(0,0,1000,1000));
         } 

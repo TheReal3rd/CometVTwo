@@ -40,6 +40,16 @@ namespace CometVTwo.Modules
             
         }
 
+        public virtual void OnPostRender()
+        {
+            
+        }
+        
+        public virtual void OnPreRender()
+        {
+            
+        }
+
         public virtual void OnDisable() // Executes code when disabled.
         {
             

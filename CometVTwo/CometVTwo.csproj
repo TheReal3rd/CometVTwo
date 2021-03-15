@@ -69,11 +69,14 @@
         <Compile Include="Modules\Hacks\InGame\Other\ClickMenu.cs" />
         <Compile Include="Modules\Hacks\InGame\Other\CrossHair.cs" />
         <Compile Include="Modules\Hacks\InGame\Other\PlayerColour.cs" />
+        <Compile Include="Modules\Hacks\InGame\Other\Tracers.cs" />
+        <Compile Include="Modules\Hacks\InGame\Player\AutoWin.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\GiveAll.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\GodMode.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\Projectile.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\RapidFire.cs" />
         <Compile Include="Modules\Hacks\InGame\Player\UnlimitedAmmo.cs" />
+        <Compile Include="Modules\Hacks\InGame\Player\Username.cs" />
         <Compile Include="Modules\Hacks\InGame\Server\AdminPassword.cs" />
         <Compile Include="Modules\Hacks\InGame\Server\ClientEditor.cs" />
         <Compile Include="Modules\Hacks\InGame\Server\MapChanger.cs" />
@@ -101,6 +104,7 @@
         <Compile Include="Utils\Objects\Quad.cs" />
         <Compile Include="Utils\Objects\Triplet.cs" />
         <Compile Include="Utils\Utils.cs" />
+        <Compile Include="Utils\WindowManager.cs" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Modules\Hacks\Hidden" />

@@ -25,7 +25,7 @@ namespace CometVTwo.Utils
             }
         }
 
-        internal static void PlayersCommand(string[] args)
+        internal static void PlayersCommand(string[] args)//Dusk's version sometimes fails...
         {
             foreach (var player in (NetworkPlayer[]) UnityEngine.Object.FindObjectsOfType(typeof(NetworkPlayer)))
             {

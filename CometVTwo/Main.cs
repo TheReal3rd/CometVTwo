@@ -2,30 +2,30 @@ using CometVTwo.Modules;
 using CometVTwo.Utils;
 using CometVTwo.Utils.FileSystem;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CometVTwo
 {
-    public class Main : MonoBehaviour//TODO need to make a window ID manager.
+    public class Main : MonoBehaviour
     {
         //Vars
-        public const string version = "0.0.4";
+        public const string version = "0.0.5";
         public const string name = "CometV2";
         public static string OS;
-        private static Color colour;
-        private int[] rgb = new []{ 0, 0, 0 };
-        private bool reverse = false;
+        private static Color colour = Color.magenta;
         //Managers and shit.
         public static FileManager FileManager = new FileManager();
         public static ModuleManager ModuleManager = new ModuleManager();
         public static BindingHandler BindingHandler = new BindingHandler();
+        public static WindowManager WindowManager = new WindowManager();
 
         public void Start()
         {
             InvokeRepeating("Cycle", 0.5f,0.01f);
             OS = SystemInfo.operatingSystem;
             ModuleManager.Init();
+            FileManager.SetLog(true);
             FileManager.LoadAll();
-            FileManager.SetLog(false);
             FileManager.Log("Started CometVTwo!");
         }
         public void Update()
@@ -40,61 +40,37 @@ namespace CometVTwo
         public void OnGUI()
         {
             //Module and MainMenu rendering.
-            if (Application.loadedLevelName == "MainMenu")
-            {
-                GUI.color = colour;
-                GUI.Label(new Rect(10f, 10f, 4000f, 4000f), string.Format("{0} MainMenu Menu | Version: {1} | By: 3rd#1703 | OS: {2}", name, version, OS));
-            }
-            else
-            {
-                GUI.color = colour;
-                GUI.Label(new Rect(10f, 10f, 4000f, 4000f), string.Format("{0} Ingame Menu | Version: {1} | By: 3rd#1703 | OS: {2}", name, version, OS));
-            }
+            GUI.color = colour;
+            GUI.Label(new Rect(10f, 10f, 4000f, 4000f), 
+                string.Format("{0} {1} Menu | Version: {2} | By: 3rd#1703 | OS: {3} | Scene: {4}", name, 
+                    SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("MainMenu")) ? "MainMenu" : "Ingame", version, OS, SceneManager.GetActiveScene().name));
             ModuleManager.OnGUI();
+            WindowManager.OnGUIEnd();
         }
 
-        public void Cycle()//TODO make this better.
+        public void OnPostRender()
         {
-            if (!reverse)
+            ModuleManager.OnPostRender();
+        }
+
+        public void OnPreRender()
+        {
+            ModuleManager.OnPreRender();
+        }
+
+        private void Cycle()//For the pride people.
+        {
+            float H, S, V;
+            Color.RGBToHSV(colour, out H, out S, out V);
+            if (H >= 1.0f)
             {
-                if (rgb[0] != 255)
-                {
-                    rgb[0]++;
-                }
-                else if (rgb[1] != 255)
-                {
-                    rgb[1]++;
-                }
-                else if (rgb[2] != 255)
-                {
-                    rgb[2]++;
-                }
-                else
-                {
-                    reverse = !reverse;
-                }
+                H = 0;
             }
             else
             {
-                if (rgb[0] != 0)
-                {
-                    rgb[0]--;
-                }
-                else if (rgb[1] != 0)
-                {
-                    rgb[1]--;
-                }
-                else if (rgb[2] != 100)
-                {
-                    rgb[2]--;
-                }
-                else
-                {
-                    reverse = !reverse;
-                }
+                H+= 0.01f;
             }
-
-            colour = Utils.Utils.RGBToColour(rgb);
+            colour = Color.HSVToRGB(H, S, V);
         }
         
         public static Color cycleColour

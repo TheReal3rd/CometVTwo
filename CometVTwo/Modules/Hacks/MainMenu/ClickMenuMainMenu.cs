@@ -31,7 +31,7 @@ namespace CometVTwo.Modules.Hacks.MainMenu
         {
             GUI.color = rainbowWindow.Value ? Main.cycleColour : windowColour.Value;
             window.ButtonColour = rainbowButton.Value ? Main.cycleColour : buttonColour.Value;
-            window.WindowRect = GUI.Window(1, window.WindowRect, new GUI.WindowFunction(window.Draw), "ModuleMenu");
+            window.WindowRect = Main.WindowManager.DrawWindow(window.WindowRect, new GUI.WindowFunction(window.Draw), "ModuleMenu");
             if (mainMenuWindow.Update)
             {
                 window.WindowRect = mainMenuWindow.Value;

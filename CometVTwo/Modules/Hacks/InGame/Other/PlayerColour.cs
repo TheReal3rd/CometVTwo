@@ -5,10 +5,6 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
 {
     public class PlayerColour : Module
     {
-        //Vars
-        private MultiplayerPlayerInformation multiplayerPlayerInformation;
-        private MultiplayerPlayerScript[] multiplayerPlayerScript;
-        
         //Settings
         private readonly booleanSetting rainbowEveryone = new booleanSetting("RainbowEveryone", false);
         
@@ -20,24 +16,27 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
 
         public override void OnUpdate()
         {
-            multiplayerPlayerScript = (MultiplayerPlayerScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MultiplayerPlayerScript));
-            multiplayerPlayerInformation = (MultiplayerPlayerInformation) GameObject.Find("Player").GetComponent(typeof(MultiplayerPlayerInformation));
+            MultiplayerPlayerInformation multiplayerPlayerInformation = (MultiplayerPlayerInformation) GameObject.Find("Player").GetComponent(typeof(MultiplayerPlayerInformation));
+            MultiplayerPlayerScript[] multiplayerPlayerScript = (MultiplayerPlayerScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MultiplayerPlayerScript));
             Color colour = Main.cycleColour;
-            foreach (var clients in multiplayerPlayerScript)
+            if (multiplayerPlayerScript.Length > 0)
             {
-                if (rainbowEveryone.Value)
+                foreach (var clients in multiplayerPlayerScript)
                 {
-                    clients.modelmat.SetColor("_PrimaryMaskColor", colour);
-                    clients.modelmat.SetColor("_SecondaryMaskColor", colour);
-                    clients.modelmat.SetColor("_DetailMaskColor", colour);
-                }
-                else
-                {
-                    if (clients.name == multiplayerPlayerInformation.myplayer.name)
+                    if (rainbowEveryone.Value)
                     {
                         clients.modelmat.SetColor("_PrimaryMaskColor", colour);
                         clients.modelmat.SetColor("_SecondaryMaskColor", colour);
                         clients.modelmat.SetColor("_DetailMaskColor", colour);
+                    }
+                    else
+                    {
+                        if (clients.name == multiplayerPlayerInformation.myplayer.name)
+                        {
+                            clients.modelmat.SetColor("_PrimaryMaskColor", colour);
+                            clients.modelmat.SetColor("_SecondaryMaskColor", colour);
+                            clients.modelmat.SetColor("_DetailMaskColor", colour);
+                        }
                     }
                 }
             }

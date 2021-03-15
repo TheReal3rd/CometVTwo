@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CometVTwo.Modules.Hacks.InGame.Movement;
 using CometVTwo.Modules.Hacks.InGame.Other;
@@ -5,9 +6,13 @@ using CometVTwo.Modules.Hacks.InGame.Player;
 using CometVTwo.Modules.Hacks.InGame.Server;
 using CometVTwo.Modules.Hacks.MainMenu;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CometVTwo.Modules
 {
+    /// <summary>
+    /// The command and control for the modules.
+    /// </summary>
     public class ModuleManager
     {
         public List<Module> modulesList = new List<Module>();
@@ -21,12 +26,15 @@ namespace CometVTwo.Modules
             modulesList.Add(new CrossHair());
             modulesList.Add(new ActiveModules());
             modulesList.Add(new PlayerColour());
+            modulesList.Add(new Tracers());
             //Player
             modulesList.Add(new GiveAll());
             modulesList.Add(new GodMode());
             modulesList.Add(new RapidFire());
             modulesList.Add(new UnlimitedAmmo());
             modulesList.Add(new Projectile());
+            modulesList.Add(new AutoWin());
+            modulesList.Add(new Username());
             //Movement
             modulesList.Add(new JumpModifier());
             modulesList.Add(new UseAmphetamineSalts());
@@ -51,14 +59,22 @@ namespace CometVTwo.Modules
         {
             foreach (Module module in modulesList)
             {
-                if (module.getCategory().Equals(Category.MainMenu) && Application.loadedLevelName != "MainMenu" 
-                    || !module.getCategory().Equals(Category.MainMenu) && Application.loadedLevelName == "MainMenu")
+                bool mainMenu = SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("MainMenu"));
+                if (module.getCategory().Equals(Category.MainMenu) && !mainMenu
+                     || !module.getCategory().Equals(Category.MainMenu) && mainMenu)
                 {
                     continue;
                 }
                 if (module.enabled.Value)
                 {
-                    module.OnUpdate();
+                    try
+                    {
+                        module.OnUpdate();
+                    }
+                    catch (Exception e)
+                    {
+                        Main.FileManager.Log(string.Format("OnUpdate {0} Error:\n\n{1},\n\n", module.getName(), e.ToString()));
+                    }
                 }
             }
         }
@@ -66,18 +82,59 @@ namespace CometVTwo.Modules
         public void OnGUI() {
             foreach (Module module in modulesList)
             {
-                if (module.getCategory().Equals(Category.MainMenu) && Application.loadedLevelName != "MainMenu" 
-                    || !module.getCategory().Equals(Category.MainMenu) && Application.loadedLevelName == "MainMenu")
+                bool mainMenu = SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("MainMenu"));
+                if (module.getCategory().Equals(Category.MainMenu) && !mainMenu
+                    || !module.getCategory().Equals(Category.MainMenu) && mainMenu)
                 {
                     continue;
                 }
                 if (module.enabled.Value)
                 {
-                    module.OnGUI();
+                    try {
+                        module.OnGUI();
+                    }
+                    catch (Exception e)
+                    {
+                        Main.FileManager.Log(string.Format("OnGUI {0} Error:\n\n{1},\n\n", module.getName(), e.ToString()));
+                    }
                 }
             }
         }
 
+        public void OnPostRender()
+        {
+            foreach (Module module in modulesList)
+            {
+                bool mainMenu = SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("MainMenu"));
+                if (module.getCategory().Equals(Category.MainMenu) && !mainMenu
+                    || !module.getCategory().Equals(Category.MainMenu) && mainMenu)
+                {
+                    continue;
+                }
+                if (module.enabled.Value)
+                {
+                    module.OnPostRender();
+                }
+            }
+        }
+
+        public void OnPreRender()
+        {
+            foreach (Module module in modulesList)
+            {
+                bool mainMenu = SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("MainMenu"));
+                if (module.getCategory().Equals(Category.MainMenu) && !mainMenu
+                    || !module.getCategory().Equals(Category.MainMenu) && mainMenu)
+                {
+                    continue;
+                }
+                if (module.enabled.Value)
+                {
+                    module.OnPreRender();
+                }
+            }
+        }
+        
         public void OnKeyPressed()
         {
             foreach (Module module in modulesList)
@@ -117,14 +174,15 @@ namespace CometVTwo.Modules
 
         public void Toggle(Module module)
         {
-            Main.FileManager.Log(module.getName()+" Toggled!");
             module.enabled.Value = !module.enabled.Value;
             if (module.enabled.Value)
             {
+                Main.FileManager.Log(module.getName()+" Enabled!");
                 module.OnEnable();
             }
             else
             {
+                Main.FileManager.Log(module.getName()+" Disabled!");
                 module.OnDisable();
             }
         }

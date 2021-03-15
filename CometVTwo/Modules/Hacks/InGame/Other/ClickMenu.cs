@@ -9,7 +9,6 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
     {
         //Vars
         public static List<WindowElement> windowList = new List<WindowElement>();
-        private int windowIDCounter = 1;
         //Settings
         private readonly rectSetting playerWindow = new rectSetting("Player", new Rect(20, 50, 360, 400));
         private readonly rectSetting movementWindow = new rectSetting("Movement", new Rect(380, 50, 360, 400));
@@ -49,12 +48,11 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
 
         public override void OnGUI()
         {
-            windowIDCounter = 1;
             foreach (WindowElement window in windowList)
             {
                 GUI.color = rainbowWindow.Value ? Main.cycleColour : window.colour;
                 window.ButtonColour = rainbowButtons.Value ? Main.cycleColour : buttonColour.Value;
-                window.WindowRect = GUI.Window(windowIDCounter, window.WindowRect, new GUI.WindowFunction(window.Draw), window.category.ToString());
+                window.WindowRect = Main.WindowManager.DrawWindow(window.WindowRect, new GUI.WindowFunction(window.Draw), window.category.ToString());
                 switch (window.category)
                 {
                     case ModuleManager.Category.Player:
@@ -108,7 +106,6 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
                     case ModuleManager.Category.Hidden://Do nothing wow!
                         break;
                 }
-                windowIDCounter++;
             }
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CometVTwo.Settings;
 using CometVTwo.Utils;
 using Steamworks;
 using UnityEngine;
@@ -9,15 +10,19 @@ namespace CometVTwo.Modules.Hacks.MainMenu
 {
     public class ForceJoin : Module//Join full and password protected servers.
     {
+        //Vars
         private MapManager[] MapManager;
         private ServerEntryScript[] serverEntryScript;
         private Rect windowRect = new Rect(20, 420, 360, 400);
         private Vector2 scrollPosition;
-        private List<Quad<String, String, String, CSteamID>> serverList = new List<Quad<String, String, String, CSteamID>>();
-
+        private List<Triplet<String, String, CSteamID>> serverList = new List<Triplet<String, String, CSteamID>>();
+        //Settings
+        private readonly rectSetting serverWindow = new rectSetting("ForceJoinPos", new Rect(20, 420, 360, 400));
+        
         public ForceJoin()
         {
             base.SetUp("ForceJoin", ModuleManager.Category.MainMenu);
+            this.moduleSettings.Add(serverWindow);
         }
 
         public override void OnUpdate()
@@ -34,9 +39,7 @@ namespace CometVTwo.Modules.Hacks.MainMenu
 
             foreach (MapManager map in MapManager)
             {
-                Quad<String, String, String, CSteamID> info =
-                    new Quad<String, String, String, CSteamID>(map.servername, map.joinpass, map.mapname,
-                        map.lobbynumber);
+                Triplet<String, String, CSteamID> info = new Triplet<String, String, CSteamID>(map.servername, map.mapname, map.lobbynumber);
                 if ((map.ipaddr != "" || map.ipaddr != null) && !Contains(info) && map.type == 1)
                 {
                     serverList.Add(info);
@@ -47,7 +50,16 @@ namespace CometVTwo.Modules.Hacks.MainMenu
         public override void OnGUI()
         {
             GUI.color = ClickMenuMainMenu.windowColour.Value;
-            windowRect = GUI.Window(3, windowRect, new GUI.WindowFunction(DrawWindow), "ServerList");
+            windowRect = Main.WindowManager.DrawWindow(windowRect, new GUI.WindowFunction(DrawWindow), "ServerList");
+            if (serverWindow.Update)
+            {
+                windowRect = serverWindow.Value;
+                serverWindow.Update = false;
+            }
+            else
+            {
+                serverWindow.Value = windowRect;
+            }
         }
 
         private void DrawWindow(int windowID)
@@ -57,16 +69,17 @@ namespace CometVTwo.Modules.Hacks.MainMenu
             GUILayout.BeginVertical(new GUILayoutOption[0]);
             foreach (var server in serverList)
             {
-                if (GUILayout.Button(String.Format("Name: {0} | Map: {1} ", server.First, server.Third), new GUILayoutOption[0]))
-                {
-                    GameObject.Find("PassName").GetComponent<InputField>().text = "";
-                    MapManager[0].type = 1;
-                    MapManager[0].joinpass = "";
-                    MapManager[0].mapname = server.Third;
-                    MapManager[0].lobbynumber = server.Fourth;
-                    MapManager[0].maxplayers = 255;
-                    MapManager[0].JoinGame();
-                }
+                if (GUILayout.Button(String.Format("Name: {0} | Map: {1} ", server.First, server.Second),
+                        new GUILayoutOption[0]))
+                    {
+                        GameObject.Find("PassName").GetComponent<InputField>().text = "";
+                        MapManager[0].type = 1;
+                        MapManager[0].joinpass = "";
+                        MapManager[0].mapname = server.Second;
+                        MapManager[0].lobbynumber = server.Third;
+                        MapManager[0].maxplayers = 255;
+                        MapManager[0].JoinGame();
+                    }
             }
             GUILayout.EndVertical();
             GUILayout.EndScrollView();
@@ -78,7 +91,7 @@ namespace CometVTwo.Modules.Hacks.MainMenu
             serverList.Clear();
         }
         
-        public bool Contains(Quad<String, String, String, CSteamID> input)
+        public bool Contains(Triplet<String, String, CSteamID> input)
         {
             foreach (var server in serverList)
             {
