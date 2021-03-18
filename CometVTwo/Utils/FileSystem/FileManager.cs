@@ -59,6 +59,10 @@ namespace CometVTwo.Utils.FileSystem
                         string formatting1 = String.Format("{0},{1},{2}", rgb[0], rgb[1], rgb[2]);
                         writer.WriteAttributeString(colour.GetName(), formatting1);
                         break;
+                    case Setting.SettingType.NumericSlider:
+                        var slider = (sliderSetting) setting;
+                        writer.WriteAttributeString(slider.GetName(), slider.GetValue().ToString());
+                        break;
                 }
             }
             writer.WriteEndElement();
@@ -103,11 +107,10 @@ namespace CometVTwo.Utils.FileSystem
                                     {
                                         selected.Selected = content;
                                     }
-
                                     break;
                                 case Setting.SettingType.Bind:
                                     var bind = (bindSetting) setting;
-                                    bind.Bind = stringToKeyCode(xmlReader.GetAttribute(bind.GetName()));
+                                    bind.Bind = StringToKeyCode(xmlReader.GetAttribute(bind.GetName()));
                                     break;
                                 case Setting.SettingType.Logic:
                                     var logic = (booleanSetting) setting;
@@ -127,7 +130,6 @@ namespace CometVTwo.Utils.FileSystem
                                         data1.width = 360;
                                         data1.height = 400;
                                     }
-
                                     rect.Update = true;
                                     rect.Value = data1;
                                     break;
@@ -137,6 +139,10 @@ namespace CometVTwo.Utils.FileSystem
                                     Color color = Utils.RGBToColour(new[]
                                         {int.Parse(data3[0]), int.Parse(data3[1]), int.Parse(data3[2])});
                                     colour.Value = color;
+                                    break;
+                                case Setting.SettingType.NumericSlider:
+                                    var slider = (sliderSetting) setting;
+                                    slider.SetValue(Convert.ToDouble(xmlReader.GetAttribute(slider.GetName())));
                                     break;
                             }
                         }
@@ -162,11 +168,11 @@ namespace CometVTwo.Utils.FileSystem
             }
         }
 
-        public KeyCode stringToKeyCode(string code)
+        public static KeyCode StringToKeyCode(string code)
         {
             foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
             {
-                if (code == keyCode.ToString())
+                if (code.ToLower() == keyCode.ToString().ToLower())
                 {
                     return keyCode;
                 }
@@ -184,7 +190,7 @@ namespace CometVTwo.Utils.FileSystem
                     writer.WriteLine(data);
                     writer.Close();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     //Do nothing we can't log it if the logger breaks.
                 }

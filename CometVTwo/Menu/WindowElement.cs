@@ -78,7 +78,7 @@ namespace CometVTwo.menu
                                     {
                                         GUI.color = buttonColour;
                                     }
-                                    if (GUILayout.Button(boolean.GetName(), new GUILayoutOption[0]))
+                                    if (GUILayout.Button(new GUIContent(boolean.GetName(), boolean.GetDescription()), new GUILayoutOption[0]))
                                     {
                                         boolean.Toggle();
                                     }
@@ -90,11 +90,11 @@ namespace CometVTwo.menu
                                     GUI.color = Color.white;
                                     GUILayout.Label(String.Format("Name: {0} Value: {1}", numeric.GetName(), numeric.GetValue()), new GUILayoutOption[0]);
                                     GUI.color = buttonColour;
-                                    if (GUILayout.Button("+", new GUILayoutOption[0]))
+                                    if (GUILayout.Button(new GUIContent("+", "Increase the value."), new GUILayoutOption[0]))
                                     {
                                         numeric.Increase();
                                     }
-                                    if (GUILayout.Button("-", new GUILayoutOption[0]))
+                                    if (GUILayout.Button(new GUIContent("-", "Decrease the value."), new GUILayoutOption[0]))
                                     {
                                         numeric.Decrease();
                                     }
@@ -109,14 +109,14 @@ namespace CometVTwo.menu
                                     GUI.color = buttonColour;
                                     if (bind.Bind.Equals(KeyCode.None) || bind.Bind.Equals(null))
                                     {
-                                        if (GUILayout.Button("Set", new GUILayoutOption[0]))
+                                        if (GUILayout.Button(new GUIContent("Set", "Set a new bind for "+module.getName()), new GUILayoutOption[0]))
                                         {
                                             Main.BindingHandler.StartBinding(module);
                                         }
                                     }
                                     else
                                     {
-                                        if (GUILayout.Button("Del", new GUILayoutOption[0]))
+                                        if (GUILayout.Button(new GUIContent("Del", "Delete the currently setup bind from: "+module.getName()), new GUILayoutOption[0]))
                                         {
                                             bind.Bind = KeyCode.None;
                                         }
@@ -130,13 +130,10 @@ namespace CometVTwo.menu
                                     {
                                         GUI.color = Color.grey;
                                     }
-                                    else
-                                    {
-                                        GUI.color = buttonColour;
-                                    }
                                     if (!select.IsShowing())
                                     {
-                                        if (GUILayout.Button(String.Format("{0}: {1}", select.GetName(), select.Selected), new GUILayoutOption[0]))
+                                        GUI.color = buttonColour;
+                                        if (GUILayout.Button(new GUIContent(String.Format("{0}: {1}", select.GetName(), select.Selected), "Change the currently set option."), new GUILayoutOption[0]))
                                         {
                                             select.ToggleShowing();
                                         }
@@ -161,7 +158,7 @@ namespace CometVTwo.menu
                                     {
                                         GUI.color = colour.Value;
                                         colour.rgbNew = Utils.Utils.GetRGB(colour.Value);
-                                        if (GUILayout.Button(String.Format("Change: {0}", colour.GetName()), new GUILayoutOption[0]))
+                                        if (GUILayout.Button(new GUIContent(String.Format("Change: {0}", colour.GetName()), "Change the currently set colour to a new colour."), new GUILayoutOption[0]))
                                         {
                                             colour.ToggleChanging();
                                         }
@@ -188,6 +185,11 @@ namespace CometVTwo.menu
                                         }
                                     }
                                     GUI.color = Color.white;
+                                    break;
+                                case Setting.SettingType.NumericSlider:
+                                    var slider = (sliderSetting) setting;
+                                    GUILayout.Label(new GUIContent(String.Format("Name: {0}  Value: {1}", slider.GetName(), slider.GetValue()), slider.GetDescription()), new GUILayoutOption[0]);
+                                    slider.SetValue((int)GUILayout.HorizontalSlider(slider.GetValueFloat(), (float)slider.MIN,(float)slider.MAX, new GUILayoutOption[0]));
                                     break;
                                 case Setting.SettingType.Rect: //Do nothing.
                                     break;

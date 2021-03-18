@@ -22,6 +22,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
         private readonly colorSetting buttonColour = new colorSetting("ButtonColour", Color.magenta);
         public static readonly booleanSetting rainbowWindow = new booleanSetting("RainbowWindow", false);
         public static readonly booleanSetting rainbowButtons = new booleanSetting("RainbowButtons", false);
+        public static readonly sliderSetting rainbowCycleSpeed = new sliderSetting("RainbowCycleSpeed", 1, 20, 10);
 
         public ClickMenu()
         {
@@ -39,6 +40,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
             this.moduleSettings.Add(buttonColour);
             this.moduleSettings.Add(rainbowWindow);
             this.moduleSettings.Add(rainbowButtons);
+            this.moduleSettings.Add(rainbowCycleSpeed);
             //Windows
             windowList.Add(new WindowElement(ModuleManager.Category.Player, Color.magenta, new Rect(20, 50, 360, 400)));
             windowList.Add(new WindowElement(ModuleManager.Category.Movement, Color.magenta, new Rect(380, 50, 360, 400)));

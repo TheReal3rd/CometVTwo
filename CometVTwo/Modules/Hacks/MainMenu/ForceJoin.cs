@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CometVTwo.Settings;
-using CometVTwo.Utils;
+using CometVTwo.Utils.Objects;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.UI;

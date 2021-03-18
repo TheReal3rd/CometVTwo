@@ -96,18 +96,24 @@
         <Compile Include="Settings\enumSetting.cs" />
         <Compile Include="Settings\rectSetting.cs" />
         <Compile Include="Settings\Setting.cs" />
+        <Compile Include="Settings\sliderSetting.cs" />
         <Compile Include="Utils\BindingHandler.cs" />
         <Compile Include="Utils\Commands.cs" />
         <Compile Include="Utils\FileSystem\FileManager.cs" />
+        <Compile Include="Utils\MultiThreading\TaskObject.cs" />
+        <Compile Include="Utils\MultiThreading\ThreadManager.cs" />
+        <Compile Include="Utils\Objects\DummyClass.cs" />
         <Compile Include="Utils\Objects\Five.cs" />
         <Compile Include="Utils\Objects\Pair.cs" />
         <Compile Include="Utils\Objects\Quad.cs" />
+        <Compile Include="Utils\Objects\TimeDelay.cs" />
         <Compile Include="Utils\Objects\Triplet.cs" />
         <Compile Include="Utils\Utils.cs" />
         <Compile Include="Utils\WindowManager.cs" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Modules\Hacks\Hidden" />
+      <Folder Include="Utils\MultiThreading\ThreadTasks" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

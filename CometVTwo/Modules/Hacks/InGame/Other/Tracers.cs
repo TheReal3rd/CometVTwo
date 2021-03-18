@@ -17,7 +17,7 @@ namespace CometVTwo.Modules.Hacks.InGame.Other
         private static Rect lineRect = new Rect(0f, 0f, 1f, 1f);
         //Settings
         private readonly colorSetting colour = new colorSetting("LineColour", Color.magenta);
-        public Tracers()
+        public Tracers()//Not working...
         {
             base.SetUp("Tracers", ModuleManager.Category.Other);
             this.moduleSettings.Add(colour);

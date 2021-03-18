@@ -7,7 +7,7 @@ namespace CometVTwo.Modules.Hacks.MainMenu
     public class ClickMenuMainMenu : Module
     {
         //Vars
-        public static WindowElement window = new WindowElement(ModuleManager.Category.MainMenu, Color.magenta, new Rect(20, 50, 360, 400));
+        private WindowElement window = new WindowElement(ModuleManager.Category.MainMenu, Color.magenta, new Rect(20, 50, 360, 400));
         
         //Settings
         private readonly static rectSetting mainMenuWindow = new rectSetting("MainMenuWindow", new Rect(20, 50, 360, 400));

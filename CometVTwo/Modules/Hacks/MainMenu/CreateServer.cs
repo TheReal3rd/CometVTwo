@@ -6,9 +6,6 @@ namespace CometVTwo.Modules.Hacks.MainMenu
     public class CreateServer : Module
     {
         //Vars
-        private MapSelectScript[] mapSelectScripts;
-        private MapManager[] mapManager;
-
         //Settings
         private readonly enumSetting mapSelection = new enumSetting("Map", "Rift", MapChanger.maps);
         private readonly doubleSetting maxPlayers = new doubleSetting("MaxPlayers", 1, 32, 1, 32);
@@ -28,8 +25,8 @@ namespace CometVTwo.Modules.Hacks.MainMenu
 
         public override void OnEnable()
         {
-            mapSelectScripts = (MapSelectScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MapSelectScript));
-            mapManager = (MapManager[]) UnityEngine.Object.FindObjectsOfType(typeof(MapManager));
+            MapSelectScript[] mapSelectScripts = (MapSelectScript[]) UnityEngine.Object.FindObjectsOfType(typeof(MapSelectScript));
+            MapManager[] mapManager = (MapManager[]) UnityEngine.Object.FindObjectsOfType(typeof(MapManager));
             foreach (MapSelectScript map in mapSelectScripts)
             {
                 map.players.minValue = minPlayers.GetValueInt();

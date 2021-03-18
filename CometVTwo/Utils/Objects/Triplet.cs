@@ -1,4 +1,4 @@
-namespace CometVTwo.Utils
+namespace CometVTwo.Utils.Objects
 {
     public class Triplet<T, U, Z>
     {

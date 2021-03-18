@@ -5,7 +5,6 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
     public class AdminPassword : Module//Originally aimed to crack and grab the Dedicated servers passwords to then use "rcon login" command.
     {
         //Vars
-        private Vector2 scrollPosition;
         private MultiplayerPlayerScript[] multiplayerPlayerScripts;
 
         public AdminPassword()

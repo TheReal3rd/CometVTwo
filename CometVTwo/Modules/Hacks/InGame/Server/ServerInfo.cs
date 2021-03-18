@@ -30,27 +30,33 @@ namespace CometVTwo.Modules.Hacks.InGame.Server
 
         public override void OnUpdate()
         {
-            GameRules gameRules = (GameRules) UnityEngine.Object.FindObjectsOfType(typeof(GameRules))[0];
             infoList.Clear();
-            if (playerCount.Value && !gameRules.Equals(null))
+            GameRules[] gameRulesArray = (GameRules[]) UnityEngine.Object.FindObjectsOfType(typeof(GameRules));
+            if (gameRulesArray.Length > 0)
             {
-                string count = String.Format("PlayerCount: {0}/{1}", gameRules.numplayers, gameRules.maxplayers);
-                infoList.Add(count);
+                GameRules gameRules = gameRulesArray[0];
+                if (playerCount.Value)
+                {
+                    string count = String.Format("PlayerCount: {0}/{1}", gameRules.numplayers, gameRules.maxplayers);
+                    infoList.Add(count);
+                }
+
+                if (readyPlayers.Value)
+                {
+                    string ready = String.Format("ReadyPlayers: {0}/{1}", gameRules.readyplayers, gameRules.numplayers);
+                    infoList.Add(ready);
+                }
+
+                if (serverName.Value && !String.IsNullOrEmpty(gameRules.servername))
+                {
+                    infoList.Add("ServerName: " + gameRules.servername.Substring(0, 15));
+                }
+
+                if (currentMap.Value && !String.IsNullOrEmpty(gameRules.currentMap))
+                {
+                    infoList.Add("MapName: " + gameRules.currentMap);
+                }
             }
-            if (readyPlayers.Value && !gameRules.Equals(null))
-            {
-                string ready = String.Format("ReadyPlayers: {0}/{1}", gameRules.readyplayers, gameRules.numplayers);
-                infoList.Add(ready);
-            }
-            if (serverName.Value && !String.IsNullOrEmpty(gameRules.servername))
-            {
-                infoList.Add("ServerName: " + gameRules.servername.Substring(0, 15));
-            }
-            if (currentMap.Value && !String.IsNullOrEmpty(gameRules.currentMap))
-            {
-                infoList.Add("MapName: "+gameRules.currentMap);
-            }
-            
             windowRect.height = GenerateHeight();
         }
 

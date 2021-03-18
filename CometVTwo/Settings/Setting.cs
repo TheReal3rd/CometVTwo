@@ -36,7 +36,7 @@ namespace CometVTwo.Settings
         {
             this.type = type;
         }
-
+        
         public bool Visible
         {
             get => visible;
@@ -50,7 +50,8 @@ namespace CometVTwo.Settings
             Bind,
             Enum,
             Rect,
-            Colour
+            Colour,
+            NumericSlider
         }
     }
 }
