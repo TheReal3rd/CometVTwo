@@ -11,6 +11,7 @@ namespace CometVTwo.Utils.FileSystem
     public class FileManager
     {
         private bool logging = false;
+        public StreamWriter logWriter = File.AppendText(Application.dataPath + "/comet/log.txt");
 
         public void SaveModule(Module module)
         {
@@ -62,6 +63,10 @@ namespace CometVTwo.Utils.FileSystem
                     case Setting.SettingType.NumericSlider:
                         var slider = (sliderSetting) setting;
                         writer.WriteAttributeString(slider.GetName(), slider.GetValue().ToString());
+                        break;
+                    case Setting.SettingType.String:
+                        var stringSet = (stringSetting) setting;
+                        writer.WriteAttributeString(stringSet.GetName(), stringSet.Value);
                         break;
                 }
             }
@@ -144,6 +149,10 @@ namespace CometVTwo.Utils.FileSystem
                                     var slider = (sliderSetting) setting;
                                     slider.SetValue(Convert.ToDouble(xmlReader.GetAttribute(slider.GetName())));
                                     break;
+                                case Setting.SettingType.String:
+                                    var stringSet = (stringSetting) setting;
+                                    stringSet.Value = xmlReader.GetAttribute(stringSet.GetName());
+                                    break;
                             }
                         }
                     }
@@ -186,9 +195,7 @@ namespace CometVTwo.Utils.FileSystem
             {
                 try
                 {
-                    StreamWriter writer = File.AppendText(Application.dataPath + "/comet/log.txt");
-                    writer.WriteLine(data);
-                    writer.Close();
+                    logWriter.WriteLine(data);
                 }
                 catch (Exception)
                 {

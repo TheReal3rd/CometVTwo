@@ -11,7 +11,7 @@ namespace CometVTwo
     public class Main : MonoBehaviour
     {
         //Vars
-        public const string version = "0.0.6";
+        public const string version = "0.0.7";
         public new const string name = "CometV2";
         public static string OS;
         private static float FPS = 0;
@@ -26,8 +26,10 @@ namespace CometVTwo
 
         public void Start()
         {
+            InvokeRepeating("SlowUpdate", 0.8f, 0.2f);
             OS = SystemInfo.operatingSystem;
             ModuleManager.Init();
+            Commands.Init();
             FileManager.SetLog(true);
             FileManager.LoadAll();
             FileManager.Log("Started CometVTwo!");
@@ -69,6 +71,11 @@ namespace CometVTwo
             ModuleManager.OnPreRender();
         }
 
+        private void SlowUpdate()//Cringe
+        {
+            ModuleManager.SlowUpdate();
+        }
+
         private void Cycle()//For the pride people.
         {
             if (CycleDelay.TimePassed(ClickMenu.rainbowCycleSpeed.GetValueFloat() / 100))
@@ -94,12 +101,12 @@ namespace CometVTwo
             get => colour;
         }
 
-        public void OnDestroy()
+        private void OnApplicationQuit()
         {
-            Commands.Init();
+            FileManager.logWriter.Close();
             FileManager.SaveAll();
         }
-
+        
         public void Awake()
         {
             UnityEngine.Object.DontDestroyOnLoad(this);

@@ -97,6 +97,7 @@
         <Compile Include="Settings\rectSetting.cs" />
         <Compile Include="Settings\Setting.cs" />
         <Compile Include="Settings\sliderSetting.cs" />
+        <Compile Include="Settings\stringSetting.cs" />
         <Compile Include="Utils\BindingHandler.cs" />
         <Compile Include="Utils\Commands.cs" />
         <Compile Include="Utils\FileSystem\FileManager.cs" />

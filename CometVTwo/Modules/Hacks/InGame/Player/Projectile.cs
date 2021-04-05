@@ -58,5 +58,14 @@ namespace CometVTwo.Modules.Hacks.InGame.Player
                 }
             }
         }
+
+        public override void SlowUpdate()
+        {
+            bool bullet = projectile.Selected == "BULLET";
+            ignoreTracers.Visible = bullet;
+            doricnoise.Visible = bullet;
+            upPower.Visible = bullet;
+            damage.Visible = bullet;
+        }
     }
 }

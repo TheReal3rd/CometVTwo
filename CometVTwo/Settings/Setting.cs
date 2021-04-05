@@ -5,7 +5,7 @@ namespace CometVTwo.Settings
         private string name;
         private string description;
         private SettingType type;
-        private bool visible = true;
+        private bool visible = true;//TODO make the visibility update when the module is enabled & disabled.
 
         public string GetName()
         {
@@ -51,7 +51,8 @@ namespace CometVTwo.Settings
             Enum,
             Rect,
             Colour,
-            NumericSlider
+            NumericSlider,
+            String
         }
     }
 }

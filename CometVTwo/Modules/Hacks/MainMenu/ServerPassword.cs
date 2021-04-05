@@ -11,7 +11,6 @@ namespace CometVTwo.Modules.Hacks.MainMenu
     public class ServerPassword : Module//Big password system.
     {
         //Vars
-        private string targetPassword;
         private MapManager[] MapManager;
         private Rect windowRect = new Rect(20, 420, 360, 400);
         private Vector2 scrollPosition;
@@ -39,11 +38,6 @@ namespace CometVTwo.Modules.Hacks.MainMenu
                         passwordList.Add(info);
                     }
                 }
-            }
-            if (!String.IsNullOrEmpty(targetPassword))
-            {
-                GameObject.Find("PassName").GetComponent<InputField>().text = targetPassword;
-                targetPassword = null;
             }
         }
 
@@ -73,7 +67,7 @@ namespace CometVTwo.Modules.Hacks.MainMenu
                 {
                     if (GUILayout.Button(server.First + " | Pass: " + server.Second, new GUILayoutOption[0]))
                     {
-                        targetPassword = server.Second;
+                        GameObject.Find("PassName").GetComponent<InputField>().text = server.Second;
                     }
                 }
             }

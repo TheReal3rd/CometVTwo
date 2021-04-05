@@ -50,6 +50,11 @@ namespace CometVTwo.Modules
             
         }
 
+        public virtual void SlowUpdate()
+        {
+            
+        }
+
         public virtual void OnDisable() // Executes code when disabled.
         {
             

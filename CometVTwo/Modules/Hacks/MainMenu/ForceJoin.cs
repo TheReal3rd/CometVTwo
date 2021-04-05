@@ -40,7 +40,7 @@ namespace CometVTwo.Modules.Hacks.MainMenu
             foreach (MapManager map in MapManager)
             {
                 Triplet<String, String, CSteamID> info = new Triplet<String, String, CSteamID>(map.servername, map.mapname, map.lobbynumber);
-                if ((map.ipaddr != "" || map.ipaddr != null) && !Contains(info) && map.type == 1)
+                if (!string.IsNullOrEmpty(map.ipaddr) && !Contains(info) && map.type == 1)
                 {
                     serverList.Add(info);
                 }

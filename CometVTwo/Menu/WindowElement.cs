@@ -191,6 +191,13 @@ namespace CometVTwo.menu
                                     GUILayout.Label(new GUIContent(String.Format("Name: {0}  Value: {1}", slider.GetName(), slider.GetValue()), slider.GetDescription()), new GUILayoutOption[0]);
                                     slider.SetValue((int)GUILayout.HorizontalSlider(slider.GetValueFloat(), (float)slider.MIN,(float)slider.MAX, new GUILayoutOption[0]));
                                     break;
+                                case Setting.SettingType.String:
+                                    var stringSet = (stringSetting) setting;
+                                    GUILayout.BeginHorizontal(new GUILayoutOption[0]);
+                                    GUILayout.Label(new GUIContent(stringSet.GetName(), stringSet.GetDescription()), new GUILayoutOption[0]);
+                                    stringSet.Value = GUILayout.TextField(stringSet.Value, new GUILayoutOption[0]);
+                                    GUILayout.EndHorizontal();
+                                    break;
                                 case Setting.SettingType.Rect: //Do nothing.
                                     break;
                             }

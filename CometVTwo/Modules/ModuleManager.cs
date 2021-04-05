@@ -134,6 +134,14 @@ namespace CometVTwo.Modules
                 }
             }
         }
+
+        public void SlowUpdate()//Used for updating settings visibility.
+        {
+            foreach (Module module in modulesList)
+            {
+                module.SlowUpdate();
+            }
+        }
         
         public void OnKeyPressed()
         {
