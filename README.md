@@ -10,4 +10,4 @@ Features:
 - GiveAdmin bruteforce method of obtaining admin powers enabling you to use rcon commands.
 
 This project as of 14 March 2021 is still active and has become public.
-Stoped working on since 5 Apr 2021.
+Stoped working on this since 5 Apr 2021.
